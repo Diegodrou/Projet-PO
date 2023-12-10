@@ -1,0 +1,154 @@
+package main;
+
+
+public class SalleDeCombat extends Salle {
+    private Monstre[] monstres;
+    private int tour;
+    private int cibleDuJoueur;
+    
+
+    private boolean monstersAlive;
+
+    
+    /**
+     * Constructeur de la salle de combat(EdB)
+     * 
+     * @param nb_monstre un entier qui indique  le nombre de monstres de la salle
+     */
+    public SalleDeCombat(int nb_monstre) {
+        this.monstres = new Monstre[nb_monstre];
+        for(int i = 0; i< monstres.length;i++){
+            monstres[i] = new Monstre(60);
+        }
+
+        this.monstersAlive = true;
+    }
+
+    /** 
+     * Change la cible du joueur(EdB)
+     * 
+     * @param cibleDuJoueur un entier qui est un index du tableau qui contient les monstres
+     */
+    public void setCibleDuJoueur(int cibleDuJoueur) {
+        this.cibleDuJoueur = cibleDuJoueur;
+    }
+
+    @Override
+    /**
+     * Cette fonction : 
+     * 1-Identifie si la carte choisi par le  joueur est applicable a un monstre ou a l'heros
+     * 2-Applique l'effet de la carte a la cible du joueur
+     * 3-Met les points de vie des monstre a 0 si ils sont mort
+     * 4-Enleve de l'energie au joueur si necessaire
+     */
+    public void performerActionsJoueur(Heros heros) {
+        int monstreChoisie = getCibleDuJoueur();
+        int carteChoisie = heros.getCarteChoisie();
+        if(carteChoisie >= 0){
+            Carte carte = heros.getMain()[carteChoisie];
+        
+            if (carte.getTypeDentiteApplicable() == "Heros"){
+                carte.effetDeCarte(heros);
+            }
+            else{
+                carte.effetDeCarte(monstres[monstreChoisie]);
+                //met pv du monstre a 0 si negative
+                if (!monstres[monstreChoisie].alive()){
+                    monstres[monstreChoisie].setPv(0);
+                }
+            }
+
+            heros.setEnergie(heros.getEnergie() - carte.getCout());
+        }
+        
+
+    }
+    
+    @Override
+    /**
+     * Cette fonctions(EdB) :
+     * 1-Regarde et actualise l'etat des monstres
+     * 2-Si il y a des montres vivants ils attaquent le joueur
+     * 3-si le joueur est mort aprés de l'attaque, elle s'assure de que les points de vie du joueurs soit mis a 0
+     */
+    public void performerActionSalle(Heros heros) {
+        // TODO Auto-generated method stub
+        checkEtatMonstres();
+        if(monstersAlive){
+            attaquerJoueur(heros);
+        }
+        if (!heros.alive()){
+            heros.setPv(0);
+        }
+        
+        
+        
+    }
+
+    /** 
+     * Performe l'attaque de chaque monstre de la salle(EdB)
+     * 
+     * @param heros un objet de type Heros(le joueur)
+     */
+    private void attaquerJoueur(Heros heros){
+        for (Monstre monstre : monstres) {
+            monstre.attaquer(heros);
+        }
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        String txt =super.toString();
+        for (Monstre monstre : monstres) {
+            txt += monstre.toString()+ "; ";
+        }
+
+        return txt;
+    }
+
+
+    /**
+     * Actualise la variable qui indique si il y a encore des monstres vivant de la salle sont vivant(EdB)
+     * 
+     */
+    private void checkEtatMonstres(){
+        
+        int i = 0;
+
+        for (Monstre monstre : monstres) {
+            if (!monstre.alive()){
+                i++;
+            }
+        }
+        if (i == monstres.length){
+            monstersAlive = false;
+        }
+
+    }
+
+    /**  
+     * 
+     * @return un entier qui represente la cible du joueur dans la salle
+     */
+    public int getCibleDuJoueur() {
+        return cibleDuJoueur;
+    }
+
+    /**
+     * 
+     * @return un boolean qui indique s'il y a des monstres vivants dans salle
+     */
+    public boolean isMonstersAlive() {
+        return monstersAlive;
+    }
+
+    public void prepTourDeJoueur(Heros heros){
+        resetEnergie(heros);
+    }
+
+    private void resetEnergie(Heros heros){
+        heros.setEnergie(heros.getEnergieMax());
+    }
+
+}
