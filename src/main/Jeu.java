@@ -41,6 +41,8 @@ public class Jeu {
 		Affichage.texteGauche(40, Config.Y_MAX - 45, "Energie : 3/3");
 		Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 20, "Defausse : 0");
 		Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 45, "Exil : 0");
+		Affichage.texteGauche(Config.X_MAX*0.2 - 100, Config.Y_MAX*0.5 - 130, joueur.toString());
+		//Affichage.texteGauche(Config.X_MAX);
 
 		StdDraw.show(); //montre a l'ecran les changements demandés
 	}
@@ -53,10 +55,13 @@ public class Jeu {
 	}
 
 	public void update() {
+		//display();
 		tourDuJoueur();
+		//display();
 		System.out.println("Tour des monstres");
 		salle.performerActionSalle(joueur);
 		affichageModeTexte();
+		display();
 		
 		
 		if(!joueur.alive() || !salle.isMonstersAlive()){
@@ -84,6 +89,7 @@ public class Jeu {
 	 */
 	public void tourDuJoueur(){
 		salle.prepTourDeJoueur(joueur);
+		display();//Affiche les donnees apres preparation du tour
 		System.out.println("Choisit une carte");
 		boolean tourDuJoueur = true;
 		while(tourDuJoueur){
@@ -94,6 +100,7 @@ public class Jeu {
 					joueur.setCarteChoisie(0);
 					choisir_cible();
 					affichageModeTexte();
+					display();
 				}
 				else{
 					System.out.println("Pas assez d'energie");
@@ -106,6 +113,7 @@ public class Jeu {
 					joueur.setCarteChoisie(1);
 					choisir_cible();
 					affichageModeTexte();
+					display();
 				}
 				else{
 					System.out.println("Pas assez d'energie");
@@ -113,6 +121,8 @@ public class Jeu {
 			}
 			else if(toucheSuivante.equals("Entrée")){
 				tourDuJoueur = false;
+				affichageModeTexte();
+				display();
 			}
 
 			else{

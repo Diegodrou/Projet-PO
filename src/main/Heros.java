@@ -60,7 +60,7 @@ public class Heros extends Entite {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "Heros: " + super.toString() + "," +"energie: " + getEnergie();
+        return "Heros: " + super.toString() + "," +"energie: " + getEnergie() + "/" + getEnergieMax();
     }
 
 }
