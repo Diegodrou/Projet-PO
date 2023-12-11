@@ -3,7 +3,7 @@ package main;
 public abstract class Carte {
     private String typeDentiteApplicable;
     private int cout;
-
+    private String nomCarte;
 
     /**
      * Indique si les effets de la  carte s'applique a un monstre ou  a un heros
@@ -32,4 +32,18 @@ public abstract class Carte {
      * @param cible un objet de type entite
      */
     abstract public void effetDeCarte(Entite cible);
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return "Carte : " + nomCarte +"/cout : " + cout;
+    }
+
+    public String getNomCarte() {
+        return nomCarte;
+    }
+
+    public void setNomCarte(String nomCarte) {
+        this.nomCarte = nomCarte;
+    }
 }
