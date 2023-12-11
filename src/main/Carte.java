@@ -5,6 +5,10 @@ public abstract class Carte {
     private int cout;
 
 
+    /**
+     * Indique si les effets de la  carte s'applique a un monstre ou  a un heros
+     * @return un String "Heros" si applicable sur un objet de type Heros, "Monstre" si applicable au monstre
+     */
     public String getTypeDentiteApplicable() {
         return typeDentiteApplicable;
     }
@@ -14,11 +18,18 @@ public abstract class Carte {
         this.cout = cout;
     }
 
+    /**
+     * 
+     * @return un entier qui represente le cout d'energie de la carte
+     */
     public int getCout() {
         return cout;
     }
 
     
-
+    /**
+     * Perfome l'effet de la carte sur la cible donnée
+     * @param cible un objet de type entite
+     */
     abstract public void effetDeCarte(Entite cible);
 }

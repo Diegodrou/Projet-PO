@@ -143,6 +143,15 @@ public class SalleDeCombat extends Salle {
         return monstersAlive;
     }
 
+
+    /**
+     * Met a jour les attributs du joueur et des monstres pour preparer le tour:
+     * 1-Le héros pioche 5 cartes
+     * 2-Son énergie actuelle devient son énergie par tour.
+     * 3-Tous ses points de blocage disparaissent.
+     * 4-Les monstres affichent leur nouvelle intention.
+     * @param heros un objet de type Heros (le joueur)
+     */
     public void prepTourDeJoueur(Heros heros){
         resetEnergie(heros);
     }

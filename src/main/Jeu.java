@@ -152,22 +152,34 @@ public class Jeu {
 		
 	}
 
+	/**
+	 * Affiche le jeu dans le terminal
+	 */
 	public void affichageModeTexte(){
 		afficheStatsJoueursModeTexte();
 		affichageStatsSalleModeTexte();
 		System.out.println("----------------------------");
 	}
 
+	/**
+	 * Affiche les stats du joueur
+	 */
 	public void afficheStatsJoueursModeTexte(){
 		System.out.println("-------------");
 		System.out.println(joueur);
 		System.out.println("-------------");
 	}
 
+	/**
+	 * Affiche la salle
+	 */
 	public void affichageStatsSalleModeTexte(){
 		System.out.println(salle);
 	}
 
+	/**
+	 * Affiche les cartes dans la main du joueur
+	 */
 	public void affichageCarteMainsModeTexte(){
 
 	}
