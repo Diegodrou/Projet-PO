@@ -26,146 +26,152 @@ public class Jeu {
 	}
 
 	public void display() {
-        StdDraw.clear();
-		
+		StdDraw.clear();
+
 		// Affichage du fond
 		String pathBackground = "pictures" + File.separator + "background.jpg";
 		Affichage.image(0, Config.X_MAX, 0, Config.Y_MAX, pathBackground);
 
 		// Affichage du héros
 		String pathHeros = "pictures" + File.separator + "Ironclad.png";
-		Affichage.image(Config.X_MAX*0.2 - 183, Config.X_MAX*0.2 + 183, Config.Y_MAX*0.5 - 130, Config.Y_MAX*0.5 + 130, pathHeros);
+		Affichage.image(Config.X_MAX * 0.2 - 183, Config.X_MAX * 0.2 + 183, Config.Y_MAX * 0.5 - 130,
+				Config.Y_MAX * 0.5 + 130, pathHeros);
 
-		// Affichage de l'énergie et le nombre de carte de la pioche, de la défausse et en l'exil
-		Affichage.texteGauche(40, Config.Y_MAX - 20, "Pioche : 10");
-		Affichage.texteGauche(40, Config.Y_MAX - 45, "Energie : 3/3");
-		Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 20, "Defausse : 0");
-		Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 45, "Exil : 0");
-		Affichage.texteGauche(Config.X_MAX*0.2 - 100, Config.Y_MAX*0.5 - 130, joueur.toString());
-		//Affichage.texteGauche(Config.X_MAX);
+		// Affichage de l'énergie et le nombre de carte de la pioche, de la défausse et
+		// en l'exil
+		// Affichage.texteGauche(40, Config.Y_MAX - 20, "Pioche : 10");
+		// Affichage.texteGauche(40, Config.Y_MAX - 45, "Energie : 3/3");
+		// Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 20, "Defausse : 0");
+		// Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 45, "Exil : 0");
 
-		StdDraw.show(); //montre a l'ecran les changements demandés
+		// Affichage des stats du joueur
+		Affichage.texteGauche(Config.X_MAX * 0.2 - 100, Config.Y_MAX * 0.5 - 130, joueur.toString());
+
+		// Affichage des stats des monstres
+		for (int i = 0; i < salle.getMonstres().length; i++) {
+			Affichage.texteGauche(Config.X_MAX * 0.5 + 20 + i * 50, Config.Y_MAX * 0.5 - (130 + i * 50),
+					salle.getMonstres()[i].toString());
+		}
+
+		// Affichage carte dans la main
+		afficheCarteMainModeGraphique();
+
+		// Affichage finir tour
+		Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 20, "Entrée - Finir tour");
+
+		StdDraw.show(); // montre a l'ecran les changements demandés
 	}
 
 	public void initialDisplay() {
 		AssociationTouches.init();
 		Config.init();
-		StdDraw.enableDoubleBuffering(); // rend l'affichage plus fluide: tout draw est mis en buffer et ne s'affiche qu'au prochain StdDraw.show();
+		StdDraw.enableDoubleBuffering(); // rend l'affichage plus fluide: tout draw est mis en buffer et ne s'affiche
+											// qu'au prochain StdDraw.show();
 		display();
 	}
 
 	public void update() {
-		//display();
+		// display();
 		tourDuJoueur();
-		//display();
+		// display();
 		System.out.println("Tour des monstres");
 		salle.performerActionSalle(joueur);
 		affichageModeTexte();
 		display();
-		
-		
-		if(!joueur.alive() || !salle.isMonstersAlive()){
+
+		if (!joueur.alive() || !salle.isMonstersAlive()) {
 			over = true;
 		}
-		
 
-		
-		//String toucheSuivante = AssociationTouches.trouveProchaineEntree(); //cette fonction boucle jusqu'a la prochaine entree de l'utilisateur
-		//if (toucheSuivante.equals("A")) { 
-		//	//TODO: deplacer le curseur vers le haut
-		//	System.out.println("1");
-		//	display();
-		//	}
-		//TODO: Ajouter les autres touches utiles avec la classe AssociationTouches
-		//else {
-		//	System.out.println("Autre touche");
-		//	display();
-		//}
-		
+		// String toucheSuivante = AssociationTouches.trouveProchaineEntree(); //cette
+		// fonction boucle jusqu'a la prochaine entree de l'utilisateur
+		// if (toucheSuivante.equals("A")) {
+		// //TODO: deplacer le curseur vers le haut
+		// System.out.println("1");
+		// display();
+		// }
+		// TODO: Ajouter les autres touches utiles avec la classe AssociationTouches
+		// else {
+		// System.out.println("Autre touche");
+		// display();
+		// }
+
 	}
 
 	/**
 	 * Performe le tour du joueur
 	 */
-	public void tourDuJoueur(){
+	public void tourDuJoueur() {
 		salle.prepTourDeJoueur(joueur);
-		display();//Affiche les donnees apres preparation du tour
+		display();// Affiche les donnees apres preparation du tour
 		System.out.println("Choisit une carte");
 		boolean tourDuJoueur = true;
-		while(tourDuJoueur){
+		while (tourDuJoueur) {
 			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
-			if (toucheSuivante.equals("1")){
-				if (joueur.getCarteDeLaMain(0).getCout()<= joueur.getEnergie()){
+			if (toucheSuivante.equals("1")) {
+				if (joueur.getCarteDeLaMain(0).getCout() <= joueur.getEnergie()) {
 					System.out.println("Vous avez choisie la carte 1 ");
 					joueur.setCarteChoisie(0);
 					choisir_cible();
 					affichageModeTexte();
 					display();
-				}
-				else{
+				} else {
 					System.out.println("Pas assez d'energie");
 				}
-				
-			}
-			else if(toucheSuivante.equals("2")){
-				if (joueur.getCarteDeLaMain(1).getCout()<= joueur.getEnergie()){
+
+			} else if (toucheSuivante.equals("2")) {
+				if (joueur.getCarteDeLaMain(1).getCout() <= joueur.getEnergie()) {
 					System.out.println("Vous avez choisie la carte 2 ");
 					joueur.setCarteChoisie(1);
 					choisir_cible();
 					affichageModeTexte();
 					display();
-				}
-				else{
+				} else {
 					System.out.println("Pas assez d'energie");
 				}
-			}
-			else if(toucheSuivante.equals("Entrée")){
+			} else if (toucheSuivante.equals("Entrée")) {
 				tourDuJoueur = false;
 				affichageModeTexte();
 				display();
 			}
 
-			else{
+			else {
 				System.out.println("Autre touche");
 			}
 			System.out.println("Appuyer sur la touche Entrée pour finir le tour");
 
 		}
-		
-		
+
 	}
 
-	public void choisir_cible(){
-		
-		if (joueur.getCarteDeLaMain(joueur.getCarteChoisie()).getTypeDentiteApplicable() =="Heros" ){
+	public void choisir_cible() {
+
+		if (joueur.getCarteDeLaMain(joueur.getCarteChoisie()).getTypeDentiteApplicable() == "Heros") {
 			salle.performerActionsJoueur(joueur);
-		}
-		else{
+		} else {
 			System.out.println("Choisit une cible");
 			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
-			if (toucheSuivante.equals("1")){
+			if (toucheSuivante.equals("1")) {
 				System.out.println("Vous avez choisi monstre 1");
 				salle.setCibleDuJoueur(0);
 				salle.performerActionsJoueur(joueur);
-				
-			}
-			else if(toucheSuivante.equals("2")){
+
+			} else if (toucheSuivante.equals("2")) {
 				System.out.println("Vous avez choisi montre 2");
 				salle.setCibleDuJoueur(1);
 				salle.performerActionsJoueur(joueur);
-				
-			}
-			else{
+
+			} else {
 				System.out.println("Autre touche");
 			}
 		}
-		
+
 	}
 
 	/**
 	 * Affiche le jeu dans le terminal
 	 */
-	public void affichageModeTexte(){
+	public void affichageModeTexte() {
 		afficheStatsJoueursModeTexte();
 		affichageStatsSalleModeTexte();
 		System.out.println("----------------------------");
@@ -174,7 +180,7 @@ public class Jeu {
 	/**
 	 * Affiche les stats du joueur
 	 */
-	public void afficheStatsJoueursModeTexte(){
+	public void afficheStatsJoueursModeTexte() {
 		System.out.println("-------------");
 		System.out.println(joueur);
 		System.out.println("-------------");
@@ -183,15 +189,25 @@ public class Jeu {
 	/**
 	 * Affiche la salle
 	 */
-	public void affichageStatsSalleModeTexte(){
+	public void affichageStatsSalleModeTexte() {
 		System.out.println(salle);
 	}
 
 	/**
 	 * Affiche les cartes dans la main du joueur
 	 */
-	public void affichageCarteMainsModeTexte(){
+	public void affichageCarteMainsModeTexte() {
 
 	}
-}
 
+	// Affichage carte dans la main
+	public void afficheCarteMainModeGraphique() {
+		Carte[] main = joueur.getMain();
+		for (int i = 0; i < main.length; i++) {
+			if (main[i] != null) {
+				Affichage.texteGauche(Config.X_MAX * 0.2 + i * 300, Config.Y_MAX * 0.1,
+						(i + 1) + "-" + main[i].toString());
+			}
+		}
+	}
+}

@@ -160,4 +160,8 @@ public class SalleDeCombat extends Salle {
         heros.setEnergie(heros.getEnergieMax());
     }
 
+    public Monstre[] getMonstres() {
+        return monstres;
+    }
+
 }
