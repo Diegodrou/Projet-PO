@@ -6,6 +6,7 @@ public class Frappe extends Carte {
     public Frappe() {
         super("Monstre",1);
         this.nb_degats = 6;
+        setNomCarte("Frappe");
     }
 
     @Override

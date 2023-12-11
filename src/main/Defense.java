@@ -6,6 +6,7 @@ public class Defense extends Carte {
     public Defense() {
         super("Heros",1);
         this.nb_block = 5;
+        setNomCarte("Defense");
     }
 
     @Override
