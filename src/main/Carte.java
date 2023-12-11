@@ -6,8 +6,10 @@ public abstract class Carte {
     private String nomCarte;
 
     /**
-     * Indique si les effets de la  carte s'applique a un monstre ou  a un heros
-     * @return un String "Heros" si applicable sur un objet de type Heros, "Monstre" si applicable au monstre
+     * Indique si les effets de la carte s'applique a un monstre ou a un heros
+     * 
+     * @return un String "Heros" si applicable sur un objet de type Heros, "Monstre"
+     *         si applicable au monstre
      */
     public String getTypeDentiteApplicable() {
         return typeDentiteApplicable;
@@ -26,9 +28,9 @@ public abstract class Carte {
         return cout;
     }
 
-    
     /**
      * Perfome l'effet de la carte sur la cible donnée
+     * 
      * @param cible un objet de type entite
      */
     abstract public void effetDeCarte(Entite cible);
@@ -36,7 +38,7 @@ public abstract class Carte {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "Carte : " + nomCarte +"/cout : " + cout;
+        return "Carte : " + nomCarte + "/cout : " + cout;
     }
 
     public String getNomCarte() {

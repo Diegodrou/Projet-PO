@@ -10,13 +10,11 @@ public class Monstre extends Entite {
     public void attaquer(Heros heros) {
 
         int blockMoinsDegats = heros.getBlock() - 6;
-        if ( blockMoinsDegats > 0) {
+        if (blockMoinsDegats > 0) {
             heros.setBlock(blockMoinsDegats);
-        }
-        else if (blockMoinsDegats == 0){
+        } else if (blockMoinsDegats == 0) {
             heros.setBlock(0);
-        }
-        else{
+        } else {
             heros.setPv(heros.getPv() + blockMoinsDegats);
             heros.setBlock(0);
         }

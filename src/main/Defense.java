@@ -4,7 +4,7 @@ public class Defense extends Carte {
     private int nb_block;
 
     public Defense() {
-        super("Heros",1);
+        super("Heros", 1);
         this.nb_block = 5;
         setNomCarte("Defense");
     }

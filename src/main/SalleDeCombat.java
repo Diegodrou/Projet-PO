@@ -1,33 +1,31 @@
 package main;
 
-
 public class SalleDeCombat extends Salle {
     private Monstre[] monstres;
     private int tour;
     private int cibleDuJoueur;
-    
 
     private boolean monstersAlive;
 
-    
     /**
      * Constructeur de la salle de combat(EdB)
      * 
-     * @param nb_monstre un entier qui indique  le nombre de monstres de la salle
+     * @param nb_monstre un entier qui indique le nombre de monstres de la salle
      */
     public SalleDeCombat(int nb_monstre) {
         this.monstres = new Monstre[nb_monstre];
-        for(int i = 0; i< monstres.length;i++){
+        for (int i = 0; i < monstres.length; i++) {
             monstres[i] = new Monstre(60);
         }
 
         this.monstersAlive = true;
     }
 
-    /** 
+    /**
      * Change la cible du joueur(EdB)
      * 
-     * @param cibleDuJoueur un entier qui est un index du tableau qui contient les monstres
+     * @param cibleDuJoueur un entier qui est un index du tableau qui contient les
+     *                      monstres
      */
     public void setCibleDuJoueur(int cibleDuJoueur) {
         this.cibleDuJoueur = cibleDuJoueur;
@@ -35,8 +33,9 @@ public class SalleDeCombat extends Salle {
 
     @Override
     /**
-     * Cette fonction : 
-     * 1-Identifie si la carte choisi par le  joueur est applicable a un monstre ou a l'heros
+     * Cette fonction :
+     * 1-Identifie si la carte choisi par le joueur est applicable a un monstre ou a
+     * l'heros
      * 2-Applique l'effet de la carte a la cible du joueur
      * 3-Met les points de vie des monstre a 0 si ils sont mort
      * 4-Enleve de l'energie au joueur si necessaire
@@ -44,53 +43,50 @@ public class SalleDeCombat extends Salle {
     public void performerActionsJoueur(Heros heros) {
         int monstreChoisie = getCibleDuJoueur();
         int carteChoisie = heros.getCarteChoisie();
-        if(carteChoisie >= 0){
+        if (carteChoisie >= 0) {
             Carte carte = heros.getMain()[carteChoisie];
-        
-            if (carte.getTypeDentiteApplicable() == "Heros"){
+
+            if (carte.getTypeDentiteApplicable() == "Heros") {
                 carte.effetDeCarte(heros);
-            }
-            else{
+            } else {
                 carte.effetDeCarte(monstres[monstreChoisie]);
-                //met pv du monstre a 0 si negative
-                if (!monstres[monstreChoisie].alive()){
+                // met pv du monstre a 0 si negative
+                if (!monstres[monstreChoisie].alive()) {
                     monstres[monstreChoisie].setPv(0);
                 }
             }
 
             heros.setEnergie(heros.getEnergie() - carte.getCout());
         }
-        
 
     }
-    
+
     @Override
     /**
      * Cette fonctions(EdB) :
      * 1-Regarde et actualise l'etat des monstres
      * 2-Si il y a des montres vivants ils attaquent le joueur
-     * 3-si le joueur est mort aprés de l'attaque, elle s'assure de que les points de vie du joueurs soit mis a 0
+     * 3-si le joueur est mort aprés de l'attaque, elle s'assure de que les points
+     * de vie du joueurs soit mis a 0
      */
     public void performerActionSalle(Heros heros) {
         // TODO Auto-generated method stub
         checkEtatMonstres();
-        if(monstersAlive){
+        if (monstersAlive) {
             attaquerJoueur(heros);
         }
-        if (!heros.alive()){
+        if (!heros.alive()) {
             heros.setPv(0);
         }
-        
-        
-        
+
     }
 
-    /** 
+    /**
      * Performe l'attaque de chaque monstre de la salle(EdB)
      * 
      * @param heros un objet de type Heros(le joueur)
      */
-    private void attaquerJoueur(Heros heros){
+    private void attaquerJoueur(Heros heros) {
         for (Monstre monstre : monstres) {
             monstre.attaquer(heros);
         }
@@ -99,35 +95,35 @@ public class SalleDeCombat extends Salle {
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        String txt =super.toString();
+        String txt = super.toString();
         for (Monstre monstre : monstres) {
-            txt += monstre.toString()+ "; ";
+            txt += monstre.toString() + "; ";
         }
 
         return txt;
     }
 
-
     /**
-     * Actualise la variable qui indique si il y a encore des monstres vivant de la salle sont vivant(EdB)
+     * Actualise la variable qui indique si il y a encore des monstres vivant de la
+     * salle sont vivant(EdB)
      * 
      */
-    private void checkEtatMonstres(){
-        
+    private void checkEtatMonstres() {
+
         int i = 0;
 
         for (Monstre monstre : monstres) {
-            if (!monstre.alive()){
+            if (!monstre.alive()) {
                 i++;
             }
         }
-        if (i == monstres.length){
+        if (i == monstres.length) {
             monstersAlive = false;
         }
 
     }
 
-    /**  
+    /**
      * 
      * @return un entier qui represente la cible du joueur dans la salle
      */
@@ -143,20 +139,20 @@ public class SalleDeCombat extends Salle {
         return monstersAlive;
     }
 
-
     /**
      * Met a jour les attributs du joueur et des monstres pour preparer le tour:
      * 1-Le héros pioche 5 cartes
      * 2-Son énergie actuelle devient son énergie par tour.
      * 3-Tous ses points de blocage disparaissent.
      * 4-Les monstres affichent leur nouvelle intention.
+     * 
      * @param heros un objet de type Heros (le joueur)
      */
-    public void prepTourDeJoueur(Heros heros){
+    public void prepTourDeJoueur(Heros heros) {
         resetEnergie(heros);
     }
 
-    private void resetEnergie(Heros heros){
+    private void resetEnergie(Heros heros) {
         heros.setEnergie(heros.getEnergieMax());
     }
 

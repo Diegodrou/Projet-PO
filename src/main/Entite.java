@@ -33,7 +33,7 @@ public abstract class Entite {
         return block;
     }
 
-    public boolean alive(){
+    public boolean alive() {
         return (getPv() > 0);
     }
 

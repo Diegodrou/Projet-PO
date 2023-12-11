@@ -2,18 +2,12 @@ package main;
 
 public class Heros extends Entite {
     private int energie;
-    
 
     private int energieMax;
-    
 
     private Carte[] main;
-    
 
     private int carteChoisie = -1;
-    
-
-
 
     public Heros(int pvMax, int energieMax) {
         super(pvMax);
@@ -53,14 +47,14 @@ public class Heros extends Entite {
         return main;
     }
 
-    public Carte getCarteDeLaMain(int index){
+    public Carte getCarteDeLaMain(int index) {
         return main[index];
     }
 
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "Heros: " + super.toString() + "," +"energie: " + getEnergie() + "/" + getEnergieMax();
+        return "Heros: " + super.toString() + "," + "energie: " + getEnergie() + "/" + getEnergieMax();
     }
 
 }
