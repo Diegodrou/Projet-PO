@@ -4,6 +4,8 @@ public abstract class Carte {
     private String typeDentiteApplicable;
     private int cout;
     private String nomCarte;
+    private int nb_block;
+    private int nb_degats;
 
     /**
      * Indique si les effets de la carte s'applique a un monstre ou a un heros
@@ -15,9 +17,19 @@ public abstract class Carte {
         return typeDentiteApplicable;
     }
 
-    public Carte(String typeDentiteApplicable, int cout) {
+    public Carte(String typeDentiteApplicable, int cout, int nb_degats, int nb_block) {
         this.typeDentiteApplicable = typeDentiteApplicable;
         this.cout = cout;
+        this.nb_block = nb_block;
+        this.nb_degats = nb_degats;
+    }
+
+    public void effetDegats(Entite cible) {
+        cible.setPv(cible.getPv() - nb_degats);
+    }
+
+    public void effetBlockage(Entite cible) {
+        cible.setBlock(cible.getBlock() + nb_block);
     }
 
     /**
