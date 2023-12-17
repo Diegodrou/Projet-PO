@@ -2,7 +2,6 @@
 package main;
 
 import java.io.File;
-import java.util.Set;
 
 import librairies.StdDraw;
 import ressources.Affichage;

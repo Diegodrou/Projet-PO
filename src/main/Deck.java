@@ -1,8 +1,8 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Deck {
     private List<Carte> cartes;
@@ -21,6 +21,12 @@ public class Deck {
 
     public void ajouteCarte(Carte carte) {
         cartes.add(carte);
+    }
+
+    public Carte getCarteAleatoire() {
+        Random r = new Random();
+        int nbrandom = r.nextInt(cartes.size());
+        return cartes.get(nbrandom);
     }
 
 }

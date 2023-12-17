@@ -4,7 +4,7 @@ public class Heurt extends Carte {
 
     public Heurt() {
         super("Monstre", 2, 8, 0);
-        // TODO Auto-generated constructor stub
+        setNomCarte("Heurt");
     }
 
     @Override
