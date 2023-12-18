@@ -1,5 +1,7 @@
 package main;
 
+import main.statut.Vulnerabilite;
+
 public class Heurt extends Carte {
 
     public Heurt() {
@@ -9,8 +11,8 @@ public class Heurt extends Carte {
 
     @Override
     public void effetDeCarte(Entite cible) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'effetDeCarte'");
+        effetDegats(cible);
+        cible.vulnerabilite.ajoutePointStatut(2);
     }
 
 }
