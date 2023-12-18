@@ -4,6 +4,8 @@ package main;
 import java.io.File;
 
 import librairies.StdDraw;
+import main.strctCarte.Defausse;
+import main.strctCarte.Pioche;
 import ressources.Affichage;
 import ressources.AssociationTouches;
 import ressources.Config;
@@ -13,10 +15,16 @@ public class Jeu {
 	private Heros joueur;
 	private SalleDeCombat salle;
 	private boolean over;
+	private Deck deck;
+	private Pioche pioche;
+	private Defausse defausse;
 
 	public Jeu() throws Exception {
 		this.joueur = new Heros(70, 3);
 		this.salle = new SalleDeCombat(2);
+		this.deck = new Deck();
+		this.pioche = new Pioche();
+		this.defausse = new Defausse();
 		over = false;
 
 	}
