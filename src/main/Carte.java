@@ -25,7 +25,7 @@ public abstract class Carte {
     }
 
     public void effetDegats(Entite cible) {
-        cible.setPv(cible.getPv() - nb_degats);
+        cible.setPv(cible.getPv() - cible.vulnerabilite.effetDeStatut(nb_degats));
     }
 
     public void effetBlockage(Entite cible) {
