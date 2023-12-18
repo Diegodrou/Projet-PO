@@ -1,7 +1,5 @@
 package main;
 
-import main.statut.Vulnerabilite;
-
 public class Heurt extends Carte {
 
     public Heurt() {
