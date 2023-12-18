@@ -1,7 +1,5 @@
 package main.strctCarte;
 
-import java.util.Stack;
-
 import main.Carte;
 
 public class Pioche extends StackDeCarte {
@@ -15,8 +13,9 @@ public class Pioche extends StackDeCarte {
 
     }
 
-    public void setCartes(Stack<Carte> defausse) {
-        cartes = defausse;
+    public void prendCartesDefausse(Defausse defausse) {
+        defausse.melangeCartes();
+        cartes = defausse.getCartes();
     }
 
 }

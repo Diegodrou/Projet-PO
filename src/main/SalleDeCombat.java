@@ -2,7 +2,6 @@ package main;
 
 public class SalleDeCombat extends Salle {
     private Monstre[] monstres;
-    private int tour;
     private int cibleDuJoueur;
 
     private boolean monstersAlive;
