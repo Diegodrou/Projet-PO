@@ -9,9 +9,12 @@ public class Vulnerabilite extends Statut {
 
     @Override
     public int effetDeStatut(int n) {
-  
+
+        if (pointStatut > 0) {
             return (int) (n + 0.5 * n);
-   
+        }
+        return n;
+
     }
 
 }
