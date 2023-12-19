@@ -67,6 +67,7 @@ public class SalleDeCombat extends Salle {
      * 2-Si il y a des montres vivants ils attaquent le joueur
      * 3-si le joueur est mort aprés de l'attaque, elle s'assure de que les points
      * de vie du joueurs soit mis a 0
+     * 4-effectue action de fin de tour des monstre
      */
     public void performerActionSalle(Heros heros) {
         // TODO Auto-generated method stub
@@ -77,6 +78,8 @@ public class SalleDeCombat extends Salle {
         if (!heros.alive()) {
             heros.setPv(0);
         }
+
+        actionsFinTourMonstres();
 
     }
 
@@ -153,6 +156,27 @@ public class SalleDeCombat extends Salle {
 
     private void resetEnergie(Heros heros) {
         heros.setEnergie(heros.getEnergieMax());
+    }
+
+    private void decrementeStatutsJoueur(Heros heros) {
+        heros.vulnerabilite.decrePointStatut();
+    }
+
+    private void decrementeStatutsMonstres() {
+        for (int i = 0; i < monstres.length; i++) {
+            monstres[i].vulnerabilite.decrePointStatut();
+        }
+    }
+
+    public void prepTourDesMonstres() {
+    }
+
+    public void actionsFinTourMonstres() {
+        decrementeStatutsMonstres();
+    }
+
+    public void actionsFinTourJoueur(Heros heros) {
+        decrementeStatutsJoueur(heros);
     }
 
     public Monstre[] getMonstres() {

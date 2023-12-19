@@ -53,8 +53,7 @@ public class Jeu {
 		// Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 45, "Exil : 0");
 
 		// Affichage des stats du joueur
-		Affichage.texteGauche(Config.X_MAX * 0.2 - 100, Config.Y_MAX * 0.5 - 130, joueur.toString());
-
+		affichageStatsJoueurModeGraphique();
 		// Affichage des stats des monstres
 		for (int i = 0; i < salle.getMonstres().length; i++) {
 			Affichage.texteGauche(Config.X_MAX * 0.5 + 20 + i * 50, Config.Y_MAX * 0.5 - (130 + i * 50),
@@ -117,39 +116,22 @@ public class Jeu {
 		while (tourDuJoueur) {
 			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
 			if (toucheSuivante.equals("1")) {
-				if (joueur.getCarteDeLaMain(0).getCout() <= joueur.getEnergie()) {
-					System.out.println("Vous avez choisie la carte 1 ");
-					joueur.setCarteChoisie(0);
-					choisir_cible();
-					affichageModeTexte();
-					display();
-				} else {
-					System.out.println("Pas assez d'energie");
-				}
-
+				joueCarte(0);
 			} else if (toucheSuivante.equals("2")) {
-				if (joueur.getCarteDeLaMain(1).getCout() <= joueur.getEnergie()) {
-					System.out.println("Vous avez choisie la carte 2 ");
-					joueur.setCarteChoisie(1);
-					choisir_cible();
-					affichageModeTexte();
-					display();
-				} else {
-					System.out.println("Pas assez d'energie");
-				}
+				joueCarte(1);
+			} else if (toucheSuivante.equals("3")) {
+				joueCarte(2);
 			} else if (toucheSuivante.equals("Entrée")) {
 				tourDuJoueur = false;
 				affichageModeTexte();
 				display();
-			}
-
-			else {
+			} else {
 				System.out.println("Autre touche");
 			}
 			System.out.println("Appuyer sur la touche Entrée pour finir le tour");
 
 		}
-
+		salle.actionsFinTourJoueur(joueur);
 	}
 
 	public void choisir_cible() {
@@ -174,6 +156,28 @@ public class Jeu {
 			}
 		}
 
+	}
+
+	/**
+	 * Joue la carte n+1 du joueur
+	 * 1-regarde si le joueur a l'energie suiffisante pour utiliser la carte
+	 * 2-s'il a l'energie suiffisante il choisit une cible et affiche le changment
+	 * sinon rien se passe
+	 * 
+	 * @param n un entier representant l'index d'un tableau
+	 */
+	private void joueCarte(int n) {
+		if (n >= 0 || n < 5) {
+			if (joueur.getCarteDeLaMain(n).getCout() <= joueur.getEnergie()) {
+				System.out.println("Vous avez choisie la carte 1 ");
+				joueur.setCarteChoisie(n);
+				choisir_cible();
+				affichageModeTexte();
+				display();
+			} else {
+				System.out.println("Pas assez d'energie");
+			}
+		}
 	}
 
 	/**
@@ -202,9 +206,21 @@ public class Jeu {
 	}
 
 	/**
-	 * Affiche les cartes dans la main du joueur
+	 * Affiche les stats du joueur
 	 */
-	public void affichageCarteMainsModeTexte() {
+	public void affichageStatsJoueurModeGraphique() {
+		double initialStatutPosX = Config.X_MAX * 0.2;
+		double initialStatutPosX2 = Config.X_MAX * 0.2 + 30;
+		double initialStatuPosY = Config.Y_MAX * 0.5 + 130;
+		double initialStatuPosY2 = Config.Y_MAX * 0.5 + 150;
+		String pathStatutVul = "pictures" + File.separator + "statuts" + File.separator + "Icon_Vulnerable.png";
+		Affichage.texteGauche(Config.X_MAX * 0.2 - 100, Config.Y_MAX * 0.5 - 130, joueur.toString());
+		// Affichage vulnerabilité
+		int pointVul = joueur.vulnerabilite.getPointStatut();
+		if (pointVul > 0) {
+			Affichage.image(initialStatutPosX, initialStatutPosX2, initialStatuPosY, initialStatuPosY2, pathStatutVul);
+			Affichage.texteGauche(initialStatutPosX2, initialStatuPosY, "" + pointVul);
+		}
 
 	}
 

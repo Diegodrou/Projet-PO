@@ -12,7 +12,12 @@ public abstract class Statut {
     }
 
     public void decrePointStatut() {
-        pointStatut = pointStatut - 1;
+        if (pointStatut > 0) {
+            pointStatut = pointStatut - 1;
+        } else {
+            pointStatut = 0;
+        }
+
     }
 
     abstract public int effetDeStatut(int n);

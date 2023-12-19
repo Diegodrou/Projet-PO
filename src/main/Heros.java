@@ -13,9 +13,10 @@ public class Heros extends Entite {
         super(pvMax);
         this.energieMax = energieMax;
         this.energie = energieMax;
-        main = new Carte[2];
+        main = new Carte[3];
         main[0] = new Frappe();
         main[1] = new Defense();
+        main[2] = new Heurt();
 
     }
 
