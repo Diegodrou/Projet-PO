@@ -152,7 +152,8 @@ public class SalleDeCombat extends Salle {
      * 
      * @param heros un objet de type Heros (le joueur)
      */
-    public void prepTourDeJoueur(Heros heros) {
+    public void prepTourDeJoueur(Heros heros, Pioche pioche) {
+        piocheCartes(pioche, heros);
         resetEnergie(heros);
     }
 
@@ -186,7 +187,9 @@ public class SalleDeCombat extends Salle {
     }
 
     private void piocheCartes(Pioche pioche, Heros joueur) {
-
+        for (int i = 0; i < Heros.MAX_NB_CARTES_MAIN; i++) {
+            joueur.ajouteCarteMain(pioche.prendreCarte());
+        }
     }
 
     public void initialiserPioches(Deck deck, Pioche pioche) {

@@ -79,6 +79,7 @@ public class Jeu {
 
 	public void update() {
 		// display();
+		salle.initialiserPioches(deck, pioche);
 		tourDuJoueur();
 		// display();
 		System.out.println("Tour des monstres");
@@ -96,7 +97,7 @@ public class Jeu {
 	 * Performe le tour du joueur
 	 */
 	private void tourDuJoueur() {
-		salle.prepTourDeJoueur(joueur);
+		salle.prepTourDeJoueur(joueur, pioche);
 		display();// Affiche les donnees apres preparation du tour
 		System.out.println("Choisit une carte");
 		boolean tourDuJoueur = true;
@@ -216,7 +217,7 @@ public class Jeu {
 		Carte[] main = joueur.getMain();
 		for (int i = 0; i < main.length; i++) {
 			if (main[i] != null) {
-				Affichage.texteGauche(Config.X_MAX * 0.2 + i * 300, Config.Y_MAX * 0.1,
+				Affichage.texteGauche(Config.X_MAX * 0.1 + i * 300, Config.Y_MAX * 0.1,
 						(i + 1) + "-" + main[i].toString());
 			}
 		}
