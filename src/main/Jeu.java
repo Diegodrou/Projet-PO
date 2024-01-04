@@ -90,25 +90,12 @@ public class Jeu {
 			over = true;
 		}
 
-		// String toucheSuivante = AssociationTouches.trouveProchaineEntree(); //cette
-		// fonction boucle jusqu'a la prochaine entree de l'utilisateur
-		// if (toucheSuivante.equals("A")) {
-		// //TODO: deplacer le curseur vers le haut
-		// System.out.println("1");
-		// display();
-		// }
-		// TODO: Ajouter les autres touches utiles avec la classe AssociationTouches
-		// else {
-		// System.out.println("Autre touche");
-		// display();
-		// }
-
 	}
 
 	/**
 	 * Performe le tour du joueur
 	 */
-	public void tourDuJoueur() {
+	private void tourDuJoueur() {
 		salle.prepTourDeJoueur(joueur);
 		display();// Affiche les donnees apres preparation du tour
 		System.out.println("Choisit une carte");
@@ -134,7 +121,7 @@ public class Jeu {
 		salle.actionsFinTourJoueur(joueur);
 	}
 
-	public void choisir_cible() {
+	private void choisir_cible() {
 
 		if (joueur.getCarteDeLaMain(joueur.getCarteChoisie()).getTypeDentiteApplicable() == "Heros") {
 			salle.performerActionsJoueur(joueur);

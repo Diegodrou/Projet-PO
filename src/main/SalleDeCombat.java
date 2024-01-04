@@ -1,5 +1,7 @@
 package main;
 
+import main.strctCarte.Pioche;
+
 public class SalleDeCombat extends Salle {
     private Monstre[] monstres;
     private int cibleDuJoueur;
@@ -181,6 +183,16 @@ public class SalleDeCombat extends Salle {
 
     public Monstre[] getMonstres() {
         return monstres;
+    }
+
+    private void piocheCartes(Pioche pioche, Heros joueur) {
+
+    }
+
+    public void initialiserPioches(Deck deck, Pioche pioche) {
+        for (int i = 0; i < pioche.getTaillePioche(); i++) {
+            pioche.ajouteCarte(deck.getCarteAleatoire());
+        }
     }
 
 }

@@ -4,6 +4,8 @@ import main.Carte;
 
 public class Pioche extends StackDeCarte {
 
+    private int taillePioche = 10;
+
     public Pioche() {
         super();
     }
@@ -16,6 +18,10 @@ public class Pioche extends StackDeCarte {
     public void prendCartesDefausse(Defausse defausse) {
         defausse.melangeCartes();
         cartes = defausse.getCartes();
+    }
+
+    public int getTaillePioche() {
+        return taillePioche;
     }
 
 }
