@@ -1,6 +1,4 @@
 
--tester Carte Heurt et finir
-
 -Utiliser interface graphique
 
 -mettre de la documentation pour les fonctions
@@ -21,3 +19,4 @@
 -------------------------------------------------------------------------------------------DEJA FAIT-----------------------------------------------------------------------
 -Implementer cout d'energie des carte
 -Implementer que le joeur puisse choisir quand finir sont tour
+-tester Carte Heurt et finir
