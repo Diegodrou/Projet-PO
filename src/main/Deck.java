@@ -14,7 +14,9 @@ public class Deck {
     private int nb_util_max;
 
     public Deck() {
-        this.cartes = new ArrayList<>();
+        cartes = new ArrayList<>();
+        nb_util = 0;
+        nb_util_max = 0;
 
         for (int i = 0; i < 5; i++) {
             ajouteCarte(new Frappe());
@@ -24,16 +26,15 @@ public class Deck {
         }
         ajouteCarte(new Heurt());
 
-        this.copieCartes = new ArrayList<>(11);
+        copieCartes = new ArrayList<>(11);
 
-        this.copieCartes.addAll(cartes);
-
-        this.nb_util_max = cartes.size();
+        copieCartes.addAll(cartes);
 
     }
 
     public void ajouteCarte(Carte carte) {
         cartes.add(carte);
+        nb_util_max++;
     }
 
     public Carte getCarteAleatoire() {
@@ -45,9 +46,14 @@ public class Deck {
         if (nb_util == nb_util_max) {
             copieCartes.clear();
             copieCartes.addAll(cartes);
+            nb_util = 0;
         }
 
         return carte;
+    }
+
+    public int nb_carte() {
+        return cartes.size();
     }
 
 }
