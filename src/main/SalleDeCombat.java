@@ -1,5 +1,6 @@
 package main;
 
+import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
 
 public class SalleDeCombat extends Salle {
@@ -193,9 +194,14 @@ public class SalleDeCombat extends Salle {
     }
 
     public void initialiserPioches(Deck deck, Pioche pioche) {
-        for (int i = 0; i < pioche.getTaillePioche(); i++) {
+        for (int i = 0; i < deck.nb_carte(); i++) {
             pioche.ajouteCarte(deck.getCarteAleatoire());
         }
+    }
+
+    public void carteToDefausse(Heros heros, Defausse defausse) {
+        defausse.ajouteCarte(heros.getMain()[heros.getCarteChoisie()]);
+        heros.supprimeCarteMain();
     }
 
 }

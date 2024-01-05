@@ -1,5 +1,7 @@
 package main;
 
+import main.strctCarte.Defausse;
+
 public class Heros extends Entite {
     private int energie;
 
@@ -18,9 +20,10 @@ public class Heros extends Entite {
         main = new Carte[MAX_NB_CARTES_MAIN];
     }
 
-    public void utiliserCarte(Monstre cible) {
-        main[carteChoisie].effetDeCarte(cible);
-    }
+    // public void utiliserCarte(Monstre cible, Defausse defausse) {
+    // main[carteChoisie].effetDeCarte(cible);
+    // supprimeCarteMain(defausse);
+    // }
 
     public int getEnergie() {
         return energie;
@@ -66,13 +69,10 @@ public class Heros extends Entite {
     }
 
     /**
-     * Supprime la carte specifié de la main
-     * 
-     * @param index un entier représentat l'indice d'une carte dans la main(un
-     *              tableau)
+     * Supprime la carte choisi par le joueur de la main
      */
-    private void supprimeCarteMain(int index) {
-
+    public void supprimeCarteMain() {
+        main[carteChoisie] = null;
     }
 
     @Override

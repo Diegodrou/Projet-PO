@@ -16,7 +16,11 @@ public class TestCode {
         Deck deck = new Deck();
         Pioche pioche = new Pioche();
         SalleDeCombat salle = new SalleDeCombat(2);
-        salle.initialiserPioches(deck, pioche);
+        for (int i = 0; i < 10; i++) {
+            salle.initialiserPioches(deck, pioche);
+            System.out.println(pioche.nb_carte());
+            System.out.println("----------------------------");
+        }
         return pioche;
 
     }

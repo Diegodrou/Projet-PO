@@ -19,6 +19,10 @@ public abstract class StackDeCarte {
         return cartes.empty();
     }
 
+    public int nb_carte() {
+        return cartes.size();
+    }
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub

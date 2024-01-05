@@ -52,6 +52,10 @@ public class Jeu {
 		// Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 20, "Defausse : 0");
 		// Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 45, "Exil : 0");
 
+		// Affichage defausse
+		afficheDefausseModeGraphique();
+		// Affichage pioche
+		affichePiocheModeGraphique();
 		// Affichage des stats du joueur
 		affichageStatsJoueurModeGraphique();
 		// Affichage des stats des monstres
@@ -109,6 +113,10 @@ public class Jeu {
 				joueCarte(1);
 			} else if (toucheSuivante.equals("3")) {
 				joueCarte(2);
+			} else if (toucheSuivante.equals("4")) {
+				joueCarte(3);
+			} else if (toucheSuivante.equals("5")) {
+				joueCarte(4);
 			} else if (toucheSuivante.equals("Entrée")) {
 				tourDuJoueur = false;
 				affichageModeTexte();
@@ -126,24 +134,26 @@ public class Jeu {
 
 		if (joueur.getCarteDeLaMain(joueur.getCarteChoisie()).getTypeDentiteApplicable() == "Heros") {
 			salle.performerActionsJoueur(joueur);
+			salle.carteToDefausse(joueur, defausse);
 		} else {
 			System.out.println("Choisit une cible");
 			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
 			if (toucheSuivante.equals("1")) {
-				System.out.println("Vous avez choisi monstre 1");
-				salle.setCibleDuJoueur(0);
-				salle.performerActionsJoueur(joueur);
-
+				effectueActionSurCible(0);
 			} else if (toucheSuivante.equals("2")) {
-				System.out.println("Vous avez choisi montre 2");
-				salle.setCibleDuJoueur(1);
-				salle.performerActionsJoueur(joueur);
-
+				effectueActionSurCible(1);
 			} else {
 				System.out.println("Autre touche");
 			}
 		}
 
+	}
+
+	private void effectueActionSurCible(int cible) {
+		System.out.println("Vous avez choisi montre " + (cible + 1));
+		salle.setCibleDuJoueur(cible);
+		salle.performerActionsJoueur(joueur);
+		salle.carteToDefausse(joueur, defausse);
 	}
 
 	/**
@@ -155,7 +165,7 @@ public class Jeu {
 	 * @param n un entier representant l'index d'un tableau
 	 */
 	private void joueCarte(int n) {
-		if (n >= 0 || n < 5) {
+		if (n >= 0 || n < 5 && joueur.getCarteDeLaMain(n) != null) {
 			if (joueur.getCarteDeLaMain(n).getCout() <= joueur.getEnergie()) {
 				System.out.println("Vous avez choisie la carte 1 ");
 				joueur.setCarteChoisie(n);
@@ -166,12 +176,13 @@ public class Jeu {
 				System.out.println("Pas assez d'energie");
 			}
 		}
+		display();
 	}
 
 	/**
 	 * Affiche le jeu dans le terminal
 	 */
-	public void affichageModeTexte() {
+	private void affichageModeTexte() {
 		afficheStatsJoueursModeTexte();
 		affichageStatsSalleModeTexte();
 		System.out.println("----------------------------");
@@ -180,7 +191,7 @@ public class Jeu {
 	/**
 	 * Affiche les stats du joueur
 	 */
-	public void afficheStatsJoueursModeTexte() {
+	private void afficheStatsJoueursModeTexte() {
 		System.out.println("-------------");
 		System.out.println(joueur);
 		System.out.println("-------------");
@@ -189,14 +200,14 @@ public class Jeu {
 	/**
 	 * Affiche la salle
 	 */
-	public void affichageStatsSalleModeTexte() {
+	private void affichageStatsSalleModeTexte() {
 		System.out.println(salle);
 	}
 
 	/**
 	 * Affiche les stats du joueur
 	 */
-	public void affichageStatsJoueurModeGraphique() {
+	private void affichageStatsJoueurModeGraphique() {
 		double initialStatutPosX = Config.X_MAX * 0.2;
 		double initialStatutPosX2 = Config.X_MAX * 0.2 + 30;
 		double initialStatuPosY = Config.Y_MAX * 0.5 + 130;
@@ -213,7 +224,7 @@ public class Jeu {
 	}
 
 	// Affichage carte dans la main
-	public void afficheCarteMainModeGraphique() {
+	private void afficheCarteMainModeGraphique() {
 		Carte[] main = joueur.getMain();
 		for (int i = 0; i < main.length; i++) {
 			if (main[i] != null) {
@@ -221,6 +232,15 @@ public class Jeu {
 						(i + 1) + "-" + main[i].toString());
 			}
 		}
+	}
+
+	private void affichePiocheModeGraphique() {
+		Affichage.texteGauche(Config.X_MAX * 0.1, Config.Y_MAX * 0.2, "Pioche: " + pioche.nb_carte());
+
+	}
+
+	private void afficheDefausseModeGraphique() {
+		Affichage.texteGauche(Config.X_MAX * 0.8, Config.Y_MAX * 0.2, "Defausse: " + defausse.nb_carte());
 	}
 
 }
