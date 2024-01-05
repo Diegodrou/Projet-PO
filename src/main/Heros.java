@@ -1,7 +1,5 @@
 package main;
 
-import main.strctCarte.Defausse;
-
 public class Heros extends Entite {
     private int energie;
 

@@ -1,11 +1,8 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import main.strctCarte.Pioche;
 
 public class Deck {
     private List<Carte> cartes;
