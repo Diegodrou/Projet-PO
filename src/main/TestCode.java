@@ -1,14 +1,15 @@
 package main;
 
+import main.salle.SalleDeCombat;
 import main.strctCarte.Pioche;
 
 public class TestCode {
+
+    private static int[] t = new int[5];
+    private static int d;
+
     public static void main(String[] args) {
-
-        System.out.println(testCreationDeck());
-        System.out.println("----------------------------------------------------");
-        System.out.println(testPiocheInit());
-
+        arrayTest();
     }
 
     private static Pioche testPiocheInit() {
@@ -28,6 +29,19 @@ public class TestCode {
     private static Deck testCreationDeck() {
         System.out.println("Test creation de Deck:");
         return new Deck();
+    }
+
+    private static void arrayTest() {
+        int a = 1;
+        d = 2;
+        t[0] = d;
+        System.out.println(t[0]);
+        d = a;
+        System.out.println(d);
+        a = 4;
+        System.out.println(d);
+        System.out.println(t[0]);
+
     }
 
 }

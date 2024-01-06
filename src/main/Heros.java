@@ -9,6 +9,8 @@ public class Heros extends Entite {
 
     public static final int MAX_NB_CARTES_MAIN = 5;
 
+    private int nb_carte_main;
+
     private int carteChoisie = -1;
 
     public Heros(int pvMax, int energieMax) {
@@ -16,6 +18,7 @@ public class Heros extends Entite {
         this.energieMax = energieMax;
         this.energie = energieMax;
         main = new Carte[MAX_NB_CARTES_MAIN];
+        nb_carte_main = 0;
     }
 
     // public void utiliserCarte(Monstre cible, Defausse defausse) {
@@ -51,6 +54,10 @@ public class Heros extends Entite {
         return main[index];
     }
 
+    public int getNb_carte_main() {
+        return nb_carte_main;
+    }
+
     /**
      * Ajoute une carte a la main de l'Heros
      * 
@@ -62,6 +69,7 @@ public class Heros extends Entite {
             if (main[i] == null && trouv == false) {
                 main[i] = carte;
                 trouv = true;
+                nb_carte_main++;
             }
         }
     }
@@ -71,6 +79,7 @@ public class Heros extends Entite {
      */
     public void supprimeCarteMain() {
         main[carteChoisie] = null;
+        nb_carte_main--;
     }
 
     @Override

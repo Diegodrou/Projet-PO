@@ -17,7 +17,7 @@ public class Main {
 			// StdDraw.show() pour afficher ce qui est dans le buffer
 			while (!jeu.isOver()) {
 				jeu.update();
-				jeu.display();
+				// jeu.display();
 			}
 
 		} catch (Exception e) {

@@ -1,5 +1,9 @@
-package main;
+package main.salle;
 
+import main.Carte;
+import main.Deck;
+import main.Heros;
+import main.Monstre;
 import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
 
@@ -188,7 +192,8 @@ public class SalleDeCombat extends Salle {
     }
 
     private void piocheCartes(Pioche pioche, Heros joueur) {
-        for (int i = 0; i < Heros.MAX_NB_CARTES_MAIN; i++) {
+        int nbCarteMain = joueur.getNb_carte_main();
+        for (int i = 0; i < (Heros.MAX_NB_CARTES_MAIN - nbCarteMain); i++) {
             joueur.ajouteCarteMain(pioche.prendreCarte());
         }
     }
@@ -202,6 +207,10 @@ public class SalleDeCombat extends Salle {
     public void carteToDefausse(Heros heros, Defausse defausse) {
         defausse.ajouteCarte(heros.getMain()[heros.getCarteChoisie()]);
         heros.supprimeCarteMain();
+    }
+
+    public void regarderSiActive() {
+
     }
 
 }

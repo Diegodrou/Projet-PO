@@ -4,6 +4,8 @@ package main;
 import java.io.File;
 
 import librairies.StdDraw;
+import main.salle.Salle;
+import main.salle.SalleDeCombat;
 import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
 import ressources.Affichage;
@@ -18,14 +20,25 @@ public class Jeu {
 	private Deck deck;
 	private Pioche pioche;
 	private Defausse defausse;
+	private int indexSalleCourante;
+	private int indexSalleAvant;
+	private SalleDeCombat salleC;
+	private SalleDeCombat salleR;
+	private SalleDeCombat salleB;
+	private Salle salleCourante;
+	private int[] salles;
 
 	public Jeu() throws Exception {
-		this.joueur = new Heros(70, 3);
-		this.salle = new SalleDeCombat(2);
-		this.deck = new Deck();
-		this.pioche = new Pioche();
-		this.defausse = new Defausse();
+		joueur = new Heros(70, 3);
+		salle = new SalleDeCombat(2);
+		deck = new Deck();
+		pioche = new Pioche();
+		defausse = new Defausse();
+		indexSalleCourante = 0;
+		indexSalleAvant = 0;
+		salles = new int[] { 1, 1, 1 };
 		over = false;
+		initisaliserSalle(determinerTypeSalle());
 
 	}
 
@@ -83,7 +96,49 @@ public class Jeu {
 
 	public void update() {
 		// display();
-		salle.initialiserPioches(deck, pioche);
+		// salle.initialiserPioches(deck, pioche);
+		// logiqueSalleDeCombat();
+		if (indexSalleAvant < indexSalleCourante) {
+			initisaliserSalle(determinerTypeSalle());
+			indexSalleAvant = indexSalleCourante;
+
+		} else {
+			gererSalle();
+		}
+
+	}
+
+	private int determinerTypeSalle() {
+		return salles[indexSalleCourante];
+	}
+
+	private void initisaliserSalle(int typeSalle) {
+		if (typeSalle == 1) {
+			salleC = new SalleDeCombat(2);
+			salleC.initialiserPioches(deck, pioche);
+			salleCourante = salleC;
+		}
+	}
+
+	private void gererSalle() {
+		if (salleCourante.isActive()) {
+			logiqueSalles(1);
+		} else {
+			indexSalleCourante++;
+		}
+	}
+
+	private void logiqueSalles(int typeSalle) {
+		switch (typeSalle) {
+			case 1 -> logiqueSalleDeCombat();
+			case 2 -> logiqueSalleRepos();
+			case 3 -> logiqueSalleBoss();
+			default -> throw new IllegalArgumentException(
+					"Le type des salles sont : 1 pour salle de combat , 2 pour salle de repos, 3 pour salle avec Boss final");
+		}
+	}
+
+	private void logiqueSalleDeCombat() {
 		tourDuJoueur();
 		// display();
 		System.out.println("Tour des monstres");
@@ -94,6 +149,13 @@ public class Jeu {
 		if (!joueur.alive() || !salle.isMonstersAlive()) {
 			over = true;
 		}
+	}
+
+	private void logiqueSalleRepos() {
+
+	}
+
+	private void logiqueSalleBoss() {
 
 	}
 
@@ -165,9 +227,9 @@ public class Jeu {
 	 * @param n un entier representant l'index d'un tableau
 	 */
 	private void joueCarte(int n) {
-		if (n >= 0 || n < 5 && joueur.getCarteDeLaMain(n) != null) {
+		if ((n >= 0 || n < 5) && (joueur.getCarteDeLaMain(n) != null)) {
 			if (joueur.getCarteDeLaMain(n).getCout() <= joueur.getEnergie()) {
-				System.out.println("Vous avez choisie la carte 1 ");
+				System.out.println("Vous avez choisie la carte " + (n + 1));
 				joueur.setCarteChoisie(n);
 				choisir_cible();
 				affichageModeTexte();
