@@ -6,15 +6,17 @@ import main.actions.mouvement.Mouvement;
 
 public abstract class Monstre extends Entite {
 
-    protected Mouvement[] pattern;
-    protected int mouvementCourant;
+    private Mouvement[] pattern;
+    private int mouvementCourant;
     private String nomMonstre;
+    private String pathImageMonstre;
 
-    public Monstre(String nomMonstre, int pvMax, Mouvement[] pattern) {
+    public Monstre(String nomMonstre, int pvMax, Mouvement[] pattern, String pathImage) {
         super(pvMax);
         mouvementCourant = 0;
         this.nomMonstre = nomMonstre;
         this.pattern = pattern;
+        pathImageMonstre = pathImage;
 
     }
 
@@ -24,15 +26,11 @@ public abstract class Monstre extends Entite {
         if (mouvementCourant == pattern.length) {
             mouvementCourant = 0;
         }
-        // int blockMoinsDegats = heros.getBlock() - 6;
-        // if (blockMoinsDegats > 0) {
-        // heros.setBlock(blockMoinsDegats);
-        // } else if (blockMoinsDegats == 0) {
-        // heros.setBlock(0);
-        // } else {
-        // heros.setPv(heros.getPv() + blockMoinsDegats);
-        // heros.setBlock(0);
-        // }
+
+    }
+
+    public String getPathImageMonstre() {
+        return pathImageMonstre;
     }
 
     @Override

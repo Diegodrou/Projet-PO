@@ -64,16 +64,18 @@ public class Jeu {
 		// Affichage des stats du joueur
 		affichageStatsJoueurModeGraphique();
 		// Affichage des stats des monstres
-		for (int i = 0; i < salleC.getMonstres().length; i++) {
-			Affichage.texteGauche(Config.X_MAX * 0.5 + 20 + i * 50, Config.Y_MAX * 0.5 - (130 + i * 50),
-					salleC.getMonstres()[i].toString());
-		}
 
 		// Affichage carte dans la main
 		afficheCarteMainModeGraphique();
 
 		// Affichage finir tour
 		Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 20, "Entrée - Finir tour");
+
+		// Affichage monstres
+		affichageMonstresMondeGraphique();
+
+		// Affichage de stats des monstres
+		affichageStatsMonstresModeGraphique();
 
 		StdDraw.show(); // montre a l'ecran les changements demandés
 	}
@@ -292,6 +294,28 @@ public class Jeu {
 
 	private void afficheDefausseModeGraphique() {
 		Affichage.texteGauche(Config.X_MAX * 0.8, Config.Y_MAX * 0.2, "Defausse: " + defausse.nb_carte());
+	}
+
+	private void affichageStatsMonstresModeGraphique() {
+		for (int i = 0; i < salleC.getMonstres().length; i++) {
+			Affichage.texteGauche(Config.X_MAX * 0.5 + 20 + i * 50, Config.Y_MAX * 0.5 - (130 + i * 50),
+					salleC.getMonstres()[i].toString());
+		}
+	}
+
+	private void affichageMonstresMondeGraphique() {
+		double xMinInit = Config.X_MAX * 0.5;
+		double yMaxInit = Config.Y_MAX * 0.5;
+
+		for (int i = 0; i < salleC.getMonstres().length; i++) {
+			if (i > 0) {
+				xMinInit += 40;
+				yMaxInit -= 100;
+			}
+
+			Affichage.image(xMinInit, xMinInit + 106, yMaxInit - 70, yMaxInit,
+					salleC.getMonstres()[i].getPathImageMonstre());
+		}
 	}
 
 }

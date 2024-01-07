@@ -32,7 +32,15 @@ public abstract class ActionEntite {
     abstract public void effetDeAction(Entite cible);
 
     public void effetDegats(Entite cible) {
-        cible.setPv(cible.getPv() - cible.vulnerabilite.effetDeStatut(nb_degats));
+        int blockMoinsDegats = cible.getBlock() - cible.vulnerabilite.effetDeStatut(nb_degats);
+        if (blockMoinsDegats > 0) {
+            cible.setBlock(blockMoinsDegats);
+        } else if (blockMoinsDegats == 0) {
+            cible.setBlock(0);
+        } else {
+            cible.setPv(cible.getPv() + blockMoinsDegats);
+            cible.setBlock(0);
+        }
     }
 
     public void effetBlockage(Entite cible) {
