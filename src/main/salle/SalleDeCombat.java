@@ -6,6 +6,7 @@ import main.actions.carte.Carte;
 import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
 import monstre.Monstre;
+import monstre.PetitSlimePiquant;
 
 public class SalleDeCombat extends Salle {
     private Monstre[] monstres;
@@ -21,7 +22,7 @@ public class SalleDeCombat extends Salle {
     public SalleDeCombat(int nb_monstre) {
         this.monstres = new Monstre[nb_monstre];
         for (int i = 0; i < monstres.length; i++) {
-            monstres[i] = new Monstre(60);
+            monstres[i] = new PetitSlimePiquant();
         }
 
         this.monstersAlive = true;
@@ -97,7 +98,9 @@ public class SalleDeCombat extends Salle {
      */
     private void attaquerJoueur(Heros heros) {
         for (Monstre monstre : monstres) {
-            monstre.attaquer(heros);
+            if (monstre.alive()) {
+                monstre.attaquer(heros);
+            }
         }
     }
 
