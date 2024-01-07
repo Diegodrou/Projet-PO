@@ -1,6 +1,6 @@
 package main.strctCarte;
 
-import main.Carte;
+import main.actions.carte.Carte;
 
 public class Pioche extends StackDeCarte {
 

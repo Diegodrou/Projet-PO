@@ -1,4 +1,7 @@
-package main;
+package monstre;
+
+import main.Entite;
+import main.Heros;
 
 public class Monstre extends Entite {
 

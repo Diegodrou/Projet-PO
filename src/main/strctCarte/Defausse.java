@@ -3,7 +3,7 @@ package main.strctCarte;
 import java.util.Collections;
 import java.util.Stack;
 
-import main.Carte;
+import main.actions.carte.Carte;
 
 public class Defausse extends StackDeCarte {
 

@@ -4,6 +4,7 @@ package main;
 import java.io.File;
 
 import librairies.StdDraw;
+import main.actions.carte.Carte;
 import main.salle.Salle;
 import main.salle.SalleDeCombat;
 import main.strctCarte.Defausse;

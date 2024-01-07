@@ -1,5 +1,8 @@
 package main;
 
+import main.actions.carte.Defense;
+import main.actions.carte.Frappe;
+import main.actions.carte.Heurt;
 import main.salle.SalleDeCombat;
 import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;

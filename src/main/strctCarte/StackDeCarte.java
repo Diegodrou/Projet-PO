@@ -2,7 +2,7 @@ package main.strctCarte;
 
 import java.util.Stack;
 
-import main.Carte;
+import main.actions.carte.Carte;
 
 public abstract class StackDeCarte {
     protected Stack<Carte> cartes;

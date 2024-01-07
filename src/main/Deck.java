@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import main.actions.carte.Carte;
+import main.actions.carte.Defense;
+import main.actions.carte.Frappe;
+import main.actions.carte.Heurt;
+
 public class Deck {
     private List<Carte> cartes;
     private List<Carte> copieCartes;

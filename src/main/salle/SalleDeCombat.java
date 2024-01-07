@@ -1,11 +1,11 @@
 package main.salle;
 
-import main.Carte;
 import main.Deck;
 import main.Heros;
-import main.Monstre;
+import main.actions.carte.Carte;
 import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
+import monstre.Monstre;
 
 public class SalleDeCombat extends Salle {
     private Monstre[] monstres;

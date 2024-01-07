@@ -1,4 +1,6 @@
-package main;
+package main.actions.carte;
+
+import main.Entite;
 
 public class Defense extends Carte {
 

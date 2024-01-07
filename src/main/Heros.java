@@ -1,5 +1,7 @@
 package main;
 
+import main.actions.carte.Carte;
+
 public class Heros extends Entite {
     private int energie;
 
