@@ -3,10 +3,16 @@ package main.actions;
 import main.Entite;
 
 public abstract class ActionEntite {
-    private String typeDentiteApplicable;
-    private String nomAction;
-    private int nb_block;
-    private int nb_degats;
+    protected String typeDentiteApplicable;
+    protected String nomAction;
+    protected int nb_block;
+    protected int nb_degats;
+
+    public ActionEntite(String typeDentiteApplicable, int nb_degats, int nb_block) {
+        this.typeDentiteApplicable = typeDentiteApplicable;
+        this.nb_block = nb_block;
+        this.nb_degats = nb_degats;
+    }
 
     /**
      * Indique si les effets de la carte s'applique a un monstre ou a un heros
@@ -33,11 +39,11 @@ public abstract class ActionEntite {
         cible.setBlock(cible.getBlock() + nb_block);
     }
 
-    public String getNomAction() {
+    protected String getNomAction() {
         return nomAction;
     }
 
-    public void setNomCarte(String nomAction) {
+    protected void setNomAction(String nomAction) {
         this.nomAction = nomAction;
     }
 }

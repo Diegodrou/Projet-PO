@@ -1,13 +1,10 @@
 package main.actions.carte;
 
 import main.Entite;
+import main.actions.ActionEntite;
 
-public abstract class Carte {
-    private String typeDentiteApplicable;
+public abstract class Carte extends ActionEntite {
     private int cout;
-    private String nomCarte;
-    private int nb_block;
-    private int nb_degats;
 
     /**
      * Indique si les effets de la carte s'applique a un monstre ou a un heros
@@ -20,18 +17,8 @@ public abstract class Carte {
     }
 
     public Carte(String typeDentiteApplicable, int cout, int nb_degats, int nb_block) {
-        this.typeDentiteApplicable = typeDentiteApplicable;
+        super(typeDentiteApplicable, nb_degats, nb_block);
         this.cout = cout;
-        this.nb_block = nb_block;
-        this.nb_degats = nb_degats;
-    }
-
-    public void effetDegats(Entite cible) {
-        cible.setPv(cible.getPv() - cible.vulnerabilite.effetDeStatut(nb_degats));
-    }
-
-    public void effetBlockage(Entite cible) {
-        cible.setBlock(cible.getBlock() + nb_block);
     }
 
     /**
@@ -49,17 +36,21 @@ public abstract class Carte {
      */
     abstract public void effetDeCarte(Entite cible);
 
+    public void effetDeAction(Entite cible) {
+        effetDeCarte(cible);
+    }
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub
-        return "Carte : " + nomCarte + "/cout : " + cout;
+        return "Carte : " + nomAction + "/cout : " + cout;
     }
 
     public String getNomCarte() {
-        return nomCarte;
+        return getNomAction();
     }
 
     public void setNomCarte(String nomCarte) {
-        this.nomCarte = nomCarte;
+        setNomAction(nomCarte);
     }
 }
