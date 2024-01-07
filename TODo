@@ -14,10 +14,11 @@
     — Chaque monstre perd tous ses points de blocage
     — Chaque monstre réalise son action selon son pattern
 
--Implementer pioche de carte
+
 
 -Implementer changement de salle
 -------------------------------------------------------------------------------------------DEJA FAIT-----------------------------------------------------------------------
 -Implementer cout d'energie des carte
 -Implementer que le joeur puisse choisir quand finir sont tour
 -tester Carte Heurt et finir
+-Implementer pioche de carte

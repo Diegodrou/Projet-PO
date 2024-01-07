@@ -15,7 +15,6 @@ import ressources.Config;
 public class Jeu {
 
 	private Heros joueur;
-	private SalleDeCombat salle;
 	private boolean over;
 	private Deck deck;
 	private Pioche pioche;
@@ -30,7 +29,6 @@ public class Jeu {
 
 	public Jeu() throws Exception {
 		joueur = new Heros(70, 3);
-		salle = new SalleDeCombat(2);
 		deck = new Deck();
 		pioche = new Pioche();
 		defausse = new Defausse();
@@ -65,9 +63,9 @@ public class Jeu {
 		// Affichage des stats du joueur
 		affichageStatsJoueurModeGraphique();
 		// Affichage des stats des monstres
-		for (int i = 0; i < salle.getMonstres().length; i++) {
+		for (int i = 0; i < salleC.getMonstres().length; i++) {
 			Affichage.texteGauche(Config.X_MAX * 0.5 + 20 + i * 50, Config.Y_MAX * 0.5 - (130 + i * 50),
-					salle.getMonstres()[i].toString());
+					salleC.getMonstres()[i].toString());
 		}
 
 		// Affichage carte dans la main
@@ -132,11 +130,11 @@ public class Jeu {
 		tourDuJoueur();
 		// display();
 		System.out.println("Tour des monstres");
-		salle.performerActionSalle(joueur);
+		salleC.performerActionSalle(joueur);
 		affichageModeTexte();
 		display();
 
-		if (!joueur.alive() || !salle.isMonstersAlive()) {
+		if (!joueur.alive() || !salleC.isMonstersAlive()) {
 			over = true;
 		}
 	}
@@ -153,7 +151,7 @@ public class Jeu {
 	 * Performe le tour du joueur
 	 */
 	private void tourDuJoueur() {
-		salle.prepTourDeJoueur(joueur, pioche, defausse);
+		salleC.prepTourDeJoueur(joueur, pioche, defausse);
 		display();// Affiche les donnees apres preparation du tour
 		System.out.println("Choisit une carte");
 		boolean tourDuJoueur = true;
@@ -179,14 +177,14 @@ public class Jeu {
 			System.out.println("Appuyer sur la touche Entrée pour finir le tour");
 
 		}
-		salle.actionsFinTourJoueur(joueur);
+		salleC.actionsFinTourJoueur(joueur);
 	}
 
 	private void choisir_cible() {
 
 		if (joueur.getCarteDeLaMain(joueur.getCarteChoisie()).getTypeDentiteApplicable() == "Heros") {
-			salle.performerActionsJoueur(joueur);
-			salle.carteToDefausse(joueur, defausse);
+			salleC.performerActionsJoueur(joueur);
+			salleC.carteToDefausse(joueur, defausse);
 		} else {
 			System.out.println("Choisit une cible");
 			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
@@ -203,9 +201,9 @@ public class Jeu {
 
 	private void effectueActionSurCible(int cible) {
 		System.out.println("Vous avez choisi montre " + (cible + 1));
-		salle.setCibleDuJoueur(cible);
-		salle.performerActionsJoueur(joueur);
-		salle.carteToDefausse(joueur, defausse);
+		salleC.setCibleDuJoueur(cible);
+		salleC.performerActionsJoueur(joueur);
+		salleC.carteToDefausse(joueur, defausse);
 	}
 
 	/**
@@ -253,7 +251,7 @@ public class Jeu {
 	 * Affiche la salle
 	 */
 	private void affichageStatsSalleModeTexte() {
-		System.out.println(salle);
+		System.out.println(salleCourante);
 	}
 
 	/**
