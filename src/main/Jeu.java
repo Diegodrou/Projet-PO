@@ -58,13 +58,6 @@ public class Jeu {
 		Affichage.image(Config.X_MAX * 0.2 - 183, Config.X_MAX * 0.2 + 183, Config.Y_MAX * 0.5 - 130,
 				Config.Y_MAX * 0.5 + 130, pathHeros);
 
-		// Affichage de l'énergie et le nombre de carte de la pioche, de la défausse et
-		// en l'exil
-		// Affichage.texteGauche(40, Config.Y_MAX - 20, "Pioche : 10");
-		// Affichage.texteGauche(40, Config.Y_MAX - 45, "Energie : 3/3");
-		// Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 20, "Defausse : 0");
-		// Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 45, "Exil : 0");
-
 		// Affichage defausse
 		afficheDefausseModeGraphique();
 		// Affichage pioche
@@ -95,9 +88,6 @@ public class Jeu {
 	}
 
 	public void update() {
-		// display();
-		// salle.initialiserPioches(deck, pioche);
-		// logiqueSalleDeCombat();
 		if (indexSalleAvant < indexSalleCourante) {
 			initisaliserSalle(determinerTypeSalle());
 			indexSalleAvant = indexSalleCourante;

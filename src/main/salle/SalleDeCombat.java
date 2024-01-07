@@ -160,6 +160,7 @@ public class SalleDeCombat extends Salle {
     public void prepTourDeJoueur(Heros heros, Pioche pioche, Defausse defausse) {
         piocheCartes(pioche, heros, defausse);
         resetEnergie(heros);
+        heros.setBlock(0);
     }
 
     private void resetEnergie(Heros heros) {
