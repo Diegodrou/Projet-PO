@@ -1,6 +1,7 @@
 package main;
 
 import main.salle.SalleDeCombat;
+import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
 
 public class TestCode {
@@ -9,7 +10,7 @@ public class TestCode {
     private static int d;
 
     public static void main(String[] args) {
-        arrayTest();
+        testPioche2();
     }
 
     private static Pioche testPiocheInit() {
@@ -41,6 +42,21 @@ public class TestCode {
         a = 4;
         System.out.println(d);
         System.out.println(t[0]);
+
+    }
+
+    public static void testPioche2() {
+        Pioche p = new Pioche();
+        Defausse d = new Defausse();
+        d.ajouteCarte(new Defense());
+        d.ajouteCarte(new Frappe());
+        d.ajouteCarte(new Heurt());
+        System.out.println(d);
+        System.out.println(p);
+        p.prendCartesDefausse(d);
+        System.out.println("------------------------------------");
+        System.out.println(d);
+        System.out.println(p);
 
     }
 

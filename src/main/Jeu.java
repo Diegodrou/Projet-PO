@@ -163,7 +163,7 @@ public class Jeu {
 	 * Performe le tour du joueur
 	 */
 	private void tourDuJoueur() {
-		salle.prepTourDeJoueur(joueur, pioche);
+		salle.prepTourDeJoueur(joueur, pioche, defausse);
 		display();// Affiche les donnees apres preparation du tour
 		System.out.println("Choisit une carte");
 		boolean tourDuJoueur = true;

@@ -16,6 +16,7 @@ public class Pioche extends StackDeCarte {
     public void prendCartesDefausse(Defausse defausse) {
         defausse.melangeCartes();
         cartes = defausse.getCartes();
+        defausse.viderDefausse();
     }
 
 }

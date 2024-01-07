@@ -157,8 +157,8 @@ public class SalleDeCombat extends Salle {
      * 
      * @param heros un objet de type Heros (le joueur)
      */
-    public void prepTourDeJoueur(Heros heros, Pioche pioche) {
-        piocheCartes(pioche, heros);
+    public void prepTourDeJoueur(Heros heros, Pioche pioche, Defausse defausse) {
+        piocheCartes(pioche, heros, defausse);
         resetEnergie(heros);
     }
 
@@ -191,11 +191,18 @@ public class SalleDeCombat extends Salle {
         return monstres;
     }
 
-    private void piocheCartes(Pioche pioche, Heros joueur) {
+    private void piocheCartes(Pioche pioche, Heros joueur, Defausse defausse) {
         int nbCarteMain = joueur.getNb_carte_main();
         for (int i = 0; i < (Heros.MAX_NB_CARTES_MAIN - nbCarteMain); i++) {
-            joueur.ajouteCarteMain(pioche.prendreCarte());
+            if (!pioche.estVide()) {
+                joueur.ajouteCarteMain(pioche.prendreCarte());
+            } else {
+                pioche.prendCartesDefausse(defausse);
+                joueur.ajouteCarteMain(pioche.prendreCarte());
+            }
+
         }
+
     }
 
     public void initialiserPioches(Deck deck, Pioche pioche) {

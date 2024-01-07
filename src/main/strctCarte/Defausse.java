@@ -16,7 +16,9 @@ public class Defausse extends StackDeCarte {
     }
 
     public Stack<Carte> getCartes() {
-        return cartes;
+        Stack<Carte> tmp = new Stack<>();
+        tmp.addAll(cartes);
+        return tmp;
 
     }
 
