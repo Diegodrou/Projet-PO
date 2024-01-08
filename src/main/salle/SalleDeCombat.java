@@ -224,4 +224,8 @@ public class SalleDeCombat extends Salle {
 
     }
 
+    public boolean regarderSiMonstreVivant(int cible) {
+        return monstres[cible].alive();
+    }
+
 }

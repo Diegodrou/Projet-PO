@@ -204,9 +204,12 @@ public class Jeu {
 
 	private void effectueActionSurCible(int cible) {
 		System.out.println("Vous avez choisi montre " + (cible + 1));
-		salleC.setCibleDuJoueur(cible);
-		salleC.performerActionsJoueur(joueur);
-		salleC.carteToDefausse(joueur, defausse);
+		if (salleC.regarderSiMonstreVivant(cible)) {
+			salleC.setCibleDuJoueur(cible);
+			salleC.performerActionsJoueur(joueur);
+			salleC.carteToDefausse(joueur, defausse);
+		}
+
 	}
 
 	/**
@@ -304,8 +307,12 @@ public class Jeu {
 				x += 325;
 				y -= 20;
 			}
-			Affichage.texteGauche(x, y,
-					salleC.getMonstres()[i].toString());
+
+			if (salleC.regarderSiMonstreVivant(i)) {
+				Affichage.texteGauche(x, y,
+						salleC.getMonstres()[i].toString());
+			}
+
 		}
 	}
 
@@ -319,8 +326,11 @@ public class Jeu {
 				yMaxInit -= 16;
 			}
 
-			Affichage.image(xMinInit, xMinInit + 106, yMaxInit - 70, yMaxInit,
-					salleC.getMonstres()[i].getPathImageMonstre());
+			if (salleC.regarderSiMonstreVivant(i)) {
+				Affichage.image(xMinInit, xMinInit + 106, yMaxInit - 70, yMaxInit,
+						salleC.getMonstres()[i].getPathImageMonstre());
+			}
+
 		}
 	}
 
