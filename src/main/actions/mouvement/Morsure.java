@@ -10,7 +10,7 @@ public class Morsure extends Mouvement {
 
     @Override
     public void effetDeMouvement(Entite cible, Entite thisEntite) {
-        effetDegats(cible);
+        effetDegats(cible, thisEntite, new int[0]);
     }
 
 }

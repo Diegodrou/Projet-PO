@@ -6,6 +6,7 @@ import main.actions.carte.Heurt;
 import main.salle.SalleDeCombat;
 import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
+import monstre.Monstre;
 
 public class TestCode {
 
@@ -20,7 +21,7 @@ public class TestCode {
         System.out.println("Test initialisation pioche:");
         Deck deck = new Deck();
         Pioche pioche = new Pioche();
-        SalleDeCombat salle = new SalleDeCombat(2);
+        SalleDeCombat salle = new SalleDeCombat(new Monstre[0]);
         for (int i = 0; i < 10; i++) {
             salle.initialiserPioches(deck, pioche);
             System.out.println(pioche.nb_carte());

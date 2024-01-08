@@ -12,10 +12,10 @@ public class Machouilleur extends Monstre {
 
     public Machouilleur() {
         super("Mâchouilleur", 40,
-                new Mouvement[] { new Charge(),
-                        new MouvAleatoire(new Mouvement[] { new Charge(), new Morsure(), new Gronder() },
+                new Mouvement[] { new Charge(7, 5),
+                        new MouvAleatoire(new Mouvement[] { new Charge(7, 5), new Morsure(), new Gronder() },
                                 new double[] { 0.30, 0.25, 0.45 }) },
-                "pictures" + File.separator + "mosntres" + File.separator + "Jaw-worm-pretty.png");
+                "pictures" + File.separator + "monstres" + File.separator + "Jaw-worm-pretty.png");
     }
 
 }

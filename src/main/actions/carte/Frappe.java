@@ -11,7 +11,7 @@ public class Frappe extends Carte {
 
     @Override
     public void effetDeCarte(Entite cible, Entite thisEntite) {
-        effetDegats(cible);
+        effetDegats(cible, thisEntite, new int[0]);
     }
 
 }

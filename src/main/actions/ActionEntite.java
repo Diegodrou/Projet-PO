@@ -31,8 +31,9 @@ public abstract class ActionEntite {
      */
     abstract public void effetDeAction(Entite cible, Entite thisEntite);
 
-    public void effetDegats(Entite cible) {
-        int blockMoinsDegats = cible.getBlock() - cible.vulnerabilite.effetDeStatut(nb_degats);
+    public void effetDegats(Entite cible, Entite thisEntite, int[] ordre) {
+        int blockMoinsDegats = cible.getBlock()
+                - applicationEffetStatuts(nb_degats, ordre, cible, thisEntite);
         if (blockMoinsDegats > 0) {
             cible.setBlock(blockMoinsDegats);
         } else if (blockMoinsDegats == 0) {
@@ -53,5 +54,22 @@ public abstract class ActionEntite {
 
     protected void setNomAction(String nomAction) {
         this.nomAction = nomAction;
+    }
+
+    private int applicationEffetStatuts(int nb_degats, int[] ordre, Entite cible, Entite thisEntite) {
+        if (ordre.length == 0) {
+            return nb_degats;
+        }
+
+        int sum = nb_degats;
+        for (int i : ordre) {
+            switch (i) {
+                case 1 -> sum = cible.vulnerabilite.effetDeStatut(sum);
+                case 2 -> sum = thisEntite.force.effetDeStatut(sum);
+                default -> throw new IllegalArgumentException("Aucun statut est associé a ce nombre");
+            }
+        }
+
+        return sum;
     }
 }

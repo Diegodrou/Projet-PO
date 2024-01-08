@@ -9,6 +9,9 @@ import main.salle.Salle;
 import main.salle.SalleDeCombat;
 import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
+import monstre.Machouilleur;
+import monstre.Monstre;
+import monstre.PetitSlimePiquant;
 import ressources.Affichage;
 import ressources.AssociationTouches;
 import ressources.Config;
@@ -105,7 +108,7 @@ public class Jeu {
 
 	private void initisaliserSalle(int typeSalle) {
 		if (typeSalle == 1) {
-			salleC = new SalleDeCombat(2);
+			salleC = new SalleDeCombat(new Monstre[] { new PetitSlimePiquant(), new Machouilleur() });
 			salleC.initialiserPioches(deck, pioche);
 			salleCourante = salleC;
 		}

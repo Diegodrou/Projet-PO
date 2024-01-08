@@ -1,5 +1,6 @@
 package main;
 
+import main.statut.Force;
 import main.statut.Vulnerabilite;
 
 public abstract class Entite {
@@ -7,12 +8,14 @@ public abstract class Entite {
     private int pvMax;
     private int block;
     public Vulnerabilite vulnerabilite;
+    public Force force;
 
     public Entite(int pvMax) {
         this.pvMax = pvMax;
         this.pv = pvMax;
         this.block = 0;
         this.vulnerabilite = new Vulnerabilite(0);
+        force = new Force(0);
     }
 
     @Override
