@@ -21,7 +21,7 @@ public abstract class Monstre extends Entite {
     }
 
     public void attaquer(Heros heros) {
-        pattern[mouvementCourant].effetDeMouvement(heros);
+        pattern[mouvementCourant].effetDeMouvement(heros, this);
         mouvementCourant++;
         if (mouvementCourant == pattern.length) {
             mouvementCourant = 0;

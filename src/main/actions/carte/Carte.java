@@ -24,10 +24,11 @@ public abstract class Carte extends ActionEntite {
      * 
      * @param cible un objet de type entite
      */
-    abstract public void effetDeCarte(Entite cible);
+    abstract public void effetDeCarte(Entite cible, Entite thisEntite);
 
-    public void effetDeAction(Entite cible) {
-        effetDeCarte(cible);
+    @Override
+    public void effetDeAction(Entite cible, Entite thisEntite) {
+        effetDeCarte(cible, thisEntite);
     }
 
     @Override

@@ -29,7 +29,7 @@ public abstract class ActionEntite {
      * 
      * @param cible un objet de type entite
      */
-    abstract public void effetDeAction(Entite cible);
+    abstract public void effetDeAction(Entite cible, Entite thisEntite);
 
     public void effetDegats(Entite cible) {
         int blockMoinsDegats = cible.getBlock() - cible.vulnerabilite.effetDeStatut(nb_degats);

@@ -10,11 +10,19 @@ public abstract class Mouvement extends ActionEntite {
         // TODO Auto-generated constructor stub
     }
 
-    public abstract void effetDeMouvement(Entite cible);
+    public abstract void effetDeMouvement(Entite cible, Entite thisEntite);
+
+    protected int getNb_degats() {
+        return nb_degats;
+    }
+
+    protected int getNb_block() {
+        return nb_block;
+    }
 
     @Override
-    public void effetDeAction(Entite cible) {
-        effetDeMouvement(cible);
+    public void effetDeAction(Entite cible, Entite thisEntite) {
+        effetDeMouvement(cible, thisEntite);
     }
 
 }

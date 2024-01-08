@@ -10,7 +10,7 @@ public class Heurt extends Carte {
     }
 
     @Override
-    public void effetDeCarte(Entite cible) {
+    public void effetDeCarte(Entite cible, Entite thisEntite) {
         effetDegats(cible);
         cible.vulnerabilite.ajoutePointStatut(2);
     }

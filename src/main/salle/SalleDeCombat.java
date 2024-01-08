@@ -54,9 +54,9 @@ public class SalleDeCombat extends Salle {
             Carte carte = heros.getMain()[carteChoisie];
 
             if (carte.getTypeDentiteApplicable() == "Heros") {
-                carte.effetDeCarte(heros);
+                carte.effetDeCarte(heros, heros);
             } else {
-                carte.effetDeCarte(monstres[monstreChoisie]);
+                carte.effetDeCarte(monstres[monstreChoisie], heros);
                 // met pv du monstre a 0 si negative
                 if (!monstres[monstreChoisie].alive()) {
                     monstres[monstreChoisie].setPv(0);

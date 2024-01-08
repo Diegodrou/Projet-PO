@@ -10,7 +10,7 @@ public class Defense extends Carte {
     }
 
     @Override
-    public void effetDeCarte(Entite cible) {
+    public void effetDeCarte(Entite cible, Entite thisEntite) {
         effetBlockage(cible);
 
     }

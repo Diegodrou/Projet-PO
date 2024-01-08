@@ -2,10 +2,10 @@ package main.actions.mouvement;
 
 import main.Entite;
 
-public class Charge extends Mouvement {
+public class Morsure extends Mouvement {
 
-    public Charge() {
-        super("Heros", 5, 0);
+    public Morsure() {
+        super("Heros", 11, 0);
     }
 
     @Override
