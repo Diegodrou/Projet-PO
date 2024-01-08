@@ -297,20 +297,26 @@ public class Jeu {
 	}
 
 	private void affichageStatsMonstresModeGraphique() {
+		double x = Config.X_MAX * 0.4;
+		double y = Config.Y_MAX * 0.4;
 		for (int i = 0; i < salleC.getMonstres().length; i++) {
-			Affichage.texteGauche(Config.X_MAX * 0.5 + 20 + i * 50, Config.Y_MAX * 0.5 - (130 + i * 50),
+			if (i > 0) {
+				x += 325;
+				y -= 20;
+			}
+			Affichage.texteGauche(x, y,
 					salleC.getMonstres()[i].toString());
 		}
 	}
 
 	private void affichageMonstresMondeGraphique() {
-		double xMinInit = Config.X_MAX * 0.5;
-		double yMaxInit = Config.Y_MAX * 0.5;
+		double xMinInit = Config.X_MAX * 0.4;
+		double yMaxInit = Config.Y_MAX * 0.5 - 10;
 
 		for (int i = 0; i < salleC.getMonstres().length; i++) {
 			if (i > 0) {
-				xMinInit += 40;
-				yMaxInit -= 100;
+				xMinInit += 320;
+				yMaxInit -= 16;
 			}
 
 			Affichage.image(xMinInit, xMinInit + 106, yMaxInit - 70, yMaxInit,
