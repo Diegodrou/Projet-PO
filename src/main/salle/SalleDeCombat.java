@@ -75,6 +75,7 @@ public class SalleDeCombat extends Salle {
      */
     public void performerActionSalle(Heros heros) {
         // TODO Auto-generated method stub
+        prepTourDesMonstres();
         checkEtatMonstres();
         if (monstersAlive) {
             attaquerJoueur(heros);
@@ -158,11 +159,11 @@ public class SalleDeCombat extends Salle {
      */
     public void prepTourDeJoueur(Heros heros, Pioche pioche, Defausse defausse) {
         piocheCartes(pioche, heros, defausse);
-        resetEnergie(heros);
+        resetEnergieHeros(heros);
         heros.setBlock(0);
     }
 
-    private void resetEnergie(Heros heros) {
+    private void resetEnergieHeros(Heros heros) {
         heros.setEnergie(heros.getEnergieMax());
     }
 
@@ -177,6 +178,13 @@ public class SalleDeCombat extends Salle {
     }
 
     public void prepTourDesMonstres() {
+        resetBlockMonstres();
+    }
+
+    private void resetBlockMonstres() {
+        for (int i = 0; i < monstres.length; i++) {
+            monstres[i].setBlock(0);
+        }
     }
 
     public void actionsFinTourMonstres() {
