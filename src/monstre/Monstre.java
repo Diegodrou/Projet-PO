@@ -10,13 +10,17 @@ public abstract class Monstre extends Entite {
     private int mouvementCourant;
     private String nomMonstre;
     private String pathImageMonstre;
+    private int longeurImage;
+    private int largeurImage;
 
-    public Monstre(String nomMonstre, int pvMax, Mouvement[] pattern, String pathImage) {
+    public Monstre(String nomMonstre, int pvMax, Mouvement[] pattern, String pathImage, int largeur, int longeur) {
         super(pvMax);
         mouvementCourant = 0;
         this.nomMonstre = nomMonstre;
         this.pattern = pattern;
         pathImageMonstre = pathImage;
+        longeurImage = longeur;
+        largeurImage = largeur;
 
     }
 
@@ -31,6 +35,14 @@ public abstract class Monstre extends Entite {
 
     public String getPathImageMonstre() {
         return pathImageMonstre;
+    }
+
+    public int getLongeurImage() {
+        return longeurImage;
+    }
+
+    public int getLargeurImage() {
+        return largeurImage;
     }
 
     @Override

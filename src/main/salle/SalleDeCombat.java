@@ -232,4 +232,8 @@ public class SalleDeCombat extends Salle {
         return monstres[cible].alive();
     }
 
+    public Monstre getMonstre(int index) {
+        return monstres[index];
+    }
+
 }

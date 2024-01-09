@@ -15,7 +15,7 @@ public class Machouilleur extends Monstre {
                 new Mouvement[] { new Charge(7, 5),
                         new MouvAleatoire(new Mouvement[] { new Charge(7, 5), new Morsure(), new Gronder() },
                                 new double[] { 0.30, 0.25, 0.45 }) },
-                "pictures" + File.separator + "monstres" + File.separator + "Jaw-worm-pretty.png");
+                "pictures" + File.separator + "monstres" + File.separator + "Jaw-worm-pretty.png", 200, 200);
     }
 
 }

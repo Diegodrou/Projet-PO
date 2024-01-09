@@ -31,6 +31,15 @@ public class Jeu {
 	private Salle salleCourante;
 	private int[] salles;
 
+	private double x1 = Config.X_MAX * 0.4;
+	private double y1 = Config.Y_MAX * 0.5;
+
+	private double x2 = Config.X_MAX * 0.6;
+	private double y2 = Config.Y_MAX * 0.6;
+
+	private double x3 = Config.X_MAX * 0.8;
+	private double y3 = Config.Y_MAX * 0.5 - 60;
+
 	public Jeu() throws Exception {
 		joueur = new Heros(70, 3);
 		deck = new Deck();
@@ -303,12 +312,24 @@ public class Jeu {
 	}
 
 	private void affichageStatsMonstresModeGraphique() {
-		double x = Config.X_MAX * 0.4;
-		double y = Config.Y_MAX * 0.4;
+		double x = 0;
+		double y = 0;
+		;
+		double espace = 20;
 		for (int i = 0; i < salleC.getMonstres().length; i++) {
-			if (i > 0) {
-				x += 325;
-				y -= 20;
+			switch (i) {
+				case 0:
+					x = x1;
+					y = y1 - salleC.getMonstre(i).getLargeurImage() - espace;
+					break;
+				case 1:
+					x = x2;
+					y = y2 - salleC.getMonstre(i).getLargeurImage() - espace;
+					break;
+				case 2:
+					x = x3;
+					y = y3 - salleC.getMonstre(i).getLargeurImage() - espace;
+					break;
 			}
 
 			if (salleC.regarderSiMonstreVivant(i)) {
@@ -320,18 +341,45 @@ public class Jeu {
 	}
 
 	private void affichageMonstresMondeGraphique() {
-		double xMinInit = Config.X_MAX * 0.4;
-		double yMaxInit = Config.Y_MAX * 0.5 - 10;
+		double xMinInit = 0;
+		double yMaxInit = 0;
 
 		for (int i = 0; i < salleC.getMonstres().length; i++) {
-			if (i > 0) {
-				xMinInit += 320;
-				yMaxInit -= 16;
+			switch (i) {
+				case 0:
+					xMinInit = x1;
+					yMaxInit = y1;
+					break;
+				case 1:
+					xMinInit = x2;
+					yMaxInit = y2;
+					break;
+				case 2:
+					xMinInit = x3;
+					yMaxInit = y3;
+					break;
 			}
 
+			// if (i == 0) {
+			// xMinInit = x1;
+			// yMaxInit = y1;
+			// }
+
+			// if (i == 1) {
+			// xMinInit = x2;
+			// yMaxInit = y2;
+			// }
+
+			// if (i == 2) {
+			// xMinInit = x3;
+			// yMaxInit = y3;
+			// }
+
 			if (salleC.regarderSiMonstreVivant(i)) {
-				Affichage.image(xMinInit, xMinInit + 106, yMaxInit - 70, yMaxInit,
-						salleC.getMonstres()[i].getPathImageMonstre());
+				System.out.println(xMinInit + " et " + yMaxInit + "pour i = " + i);
+				Affichage.image(xMinInit, xMinInit + salleC.getMonstre(i).getLongeurImage(),
+						yMaxInit - salleC.getMonstre(i).getLargeurImage(), yMaxInit,
+						salleC.getMonstre(i).getPathImageMonstre());
 			}
 
 		}
