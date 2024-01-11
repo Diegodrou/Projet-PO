@@ -7,6 +7,7 @@ import librairies.StdDraw;
 import main.actions.carte.Carte;
 import main.salle.Salle;
 import main.salle.SalleDeCombat;
+import main.statut.Statut;
 import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
 import monstre.Machouilleur;
@@ -88,6 +89,7 @@ public class Jeu {
 
 		// Affichage de stats des monstres
 		affichageStatsMonstresModeGraphique();
+		affichageStatutsMonstreModeGraphique();
 
 		StdDraw.show(); // montre a l'ecran les changements demandés
 	}
@@ -360,29 +362,55 @@ public class Jeu {
 					break;
 			}
 
-			// if (i == 0) {
-			// xMinInit = x1;
-			// yMaxInit = y1;
-			// }
-
-			// if (i == 1) {
-			// xMinInit = x2;
-			// yMaxInit = y2;
-			// }
-
-			// if (i == 2) {
-			// xMinInit = x3;
-			// yMaxInit = y3;
-			// }
-
 			if (salleC.regarderSiMonstreVivant(i)) {
-				System.out.println(xMinInit + " et " + yMaxInit + "pour i = " + i);
 				Affichage.image(xMinInit, xMinInit + salleC.getMonstre(i).getLongeurImage(),
 						yMaxInit - salleC.getMonstre(i).getLargeurImage(), yMaxInit,
 						salleC.getMonstre(i).getPathImageMonstre());
 			}
 
 		}
+	}
+
+	private void affichageStatutsMonstreModeGraphique() {
+		double x = 0;
+		double y = 0;
+		double espace = 5;
+
+		for (int i = 0; i < salleC.getMonstres().length; i++) {
+			switch (i) {
+				case 0:
+					x = x1;
+					y = y1 + espace;
+					break;
+				case 1:
+					x = x2;
+					y = y2 + espace;
+					break;
+				case 2:
+					x = x3;
+					y = y3 + espace;
+					break;
+			}
+			for (int a = 0; a < 2; a++) {
+				switch (a) {
+					case 0:
+						break;
+					case 1:
+						x += 20;
+						break;
+				}
+				Affichage.image(x, x + 20, y - 20, y, Statut.imagesStatut[a]);
+				Affichage.texteGauche(x + 22, y, cherchePointStatutMonstre(salleC.getMonstre(i), a));
+			}
+		}
+	}
+
+	private String cherchePointStatutMonstre(Monstre m, int numStatut) {
+		return switch (numStatut) {
+			case 0 -> "" + m.vulnerabilite.getPointStatut();
+			case 1 -> "" + m.force.getPointStatut();
+			default -> throw new IllegalArgumentException();
+		};
 	}
 
 }
