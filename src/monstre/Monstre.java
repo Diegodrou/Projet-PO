@@ -12,6 +12,7 @@ public abstract class Monstre extends Entite {
     private String pathImageMonstre;
     private int longeurImage;
     private int largeurImage;
+    private Mouvement intention;
 
     public Monstre(String nomMonstre, int pvMax, Mouvement[] pattern, String pathImage, int largeur, int longeur) {
         super(pvMax);
@@ -21,6 +22,7 @@ public abstract class Monstre extends Entite {
         pathImageMonstre = pathImage;
         longeurImage = longeur;
         largeurImage = largeur;
+        intention = this.pattern[mouvementCourant];
 
     }
 
@@ -30,6 +32,7 @@ public abstract class Monstre extends Entite {
         if (mouvementCourant == pattern.length) {
             mouvementCourant = 0;
         }
+        intention = pattern[mouvementCourant];
 
     }
 
@@ -43,6 +46,10 @@ public abstract class Monstre extends Entite {
 
     public int getLargeurImage() {
         return largeurImage;
+    }
+
+    public Mouvement getIntention() {
+        return intention;
     }
 
     @Override

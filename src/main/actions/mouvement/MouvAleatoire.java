@@ -1,5 +1,7 @@
 package main.actions.mouvement;
 
+import java.io.File;
+
 import main.Entite;
 
 public class MouvAleatoire extends Mouvement {
@@ -8,7 +10,8 @@ public class MouvAleatoire extends Mouvement {
     private double[] probs;
 
     public MouvAleatoire(Mouvement[] mouvs, double[] probs) {
-        super("HerosEtMonstre", 0, 0);
+        super("HerosEtMonstre", 0, 0,
+                "pictures" + File.separator + "intentions" + File.separator + "Intent_-_Unknown.png");
         mouvements = mouvs;
         this.probs = probs;
     }

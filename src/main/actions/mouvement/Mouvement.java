@@ -5,8 +5,11 @@ import main.actions.ActionEntite;
 
 public abstract class Mouvement extends ActionEntite {
 
-    public Mouvement(String typeDentiteApplicable, int nb_degats, int nb_block) {
+    protected String imagePath;
+
+    public Mouvement(String typeDentiteApplicable, int nb_degats, int nb_block, String imagePath) {
         super(typeDentiteApplicable, nb_degats, nb_block);
+        this.imagePath = imagePath;
         // TODO Auto-generated constructor stub
     }
 
@@ -18,6 +21,10 @@ public abstract class Mouvement extends ActionEntite {
 
     protected int getNb_block() {
         return nb_block;
+    }
+
+    public String getImage() {
+        return imagePath;
     }
 
     @Override

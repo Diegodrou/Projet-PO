@@ -345,6 +345,8 @@ public class Jeu {
 	private void affichageMonstresMondeGraphique() {
 		double xMinInit = 0;
 		double yMaxInit = 0;
+		double espaceX = 20;
+		double espaceY = 35;
 
 		for (int i = 0; i < salleC.getMonstres().length; i++) {
 			switch (i) {
@@ -363,9 +365,11 @@ public class Jeu {
 			}
 
 			if (salleC.regarderSiMonstreVivant(i)) {
-				Affichage.image(xMinInit, xMinInit + salleC.getMonstre(i).getLongeurImage(),
-						yMaxInit - salleC.getMonstre(i).getLargeurImage(), yMaxInit,
-						salleC.getMonstre(i).getPathImageMonstre());
+				Monstre m = salleC.getMonstre(i);
+				Affichage.image(xMinInit, xMinInit + m.getLongeurImage(),
+						yMaxInit - m.getLargeurImage(), yMaxInit,
+						m.getPathImageMonstre());
+				affichageItentionMonstre(xMinInit + (m.getLongeurImage() / 2) - espaceX, yMaxInit + espaceY, m);
 			}
 
 		}
@@ -374,34 +378,43 @@ public class Jeu {
 	private void affichageStatutsMonstreModeGraphique() {
 		double x = 0;
 		double y = 0;
-		double espace = 5;
+		double espace = 40;
+		double longeurImage = 20;
+		double largeurImage = 20;
 
 		for (int i = 0; i < salleC.getMonstres().length; i++) {
-			switch (i) {
-				case 0:
-					x = x1;
-					y = y1 + espace;
-					break;
-				case 1:
-					x = x2;
-					y = y2 + espace;
-					break;
-				case 2:
-					x = x3;
-					y = y3 + espace;
-					break;
-			}
-			for (int a = 0; a < 2; a++) {
-				switch (a) {
+			if (salleC.getMonstre(i).alive()) {
+				switch (i) {
 					case 0:
+						x = x1;
+						y = y1 - salleC.getMonstre(i).getLargeurImage() - espace;
 						break;
 					case 1:
-						x += 20;
+						x = x2;
+						y = y2 - salleC.getMonstre(i).getLargeurImage() - espace;
+						break;
+					case 2:
+						x = x3;
+						y = y3 - salleC.getMonstre(i).getLargeurImage() - espace;
 						break;
 				}
-				Affichage.image(x, x + 20, y - 20, y, Statut.imagesStatut[a]);
-				Affichage.texteGauche(x + 22, y, cherchePointStatutMonstre(salleC.getMonstre(i), a));
+				for (int a = 0; a < 2; a++) {
+					switch (a) {
+						case 0:
+							break;
+						case 1:
+							x += 25;
+							break;
+					}
+
+					if (Integer.valueOf(cherchePointStatutMonstre(salleC.getMonstre(i), a)) > 0) {
+						Affichage.image(x, x + longeurImage, y - largeurImage, y, Statut.imagesStatut[a]);
+						Affichage.texteGauche(x + 22, y, cherchePointStatutMonstre(salleC.getMonstre(i), a));
+					}
+
+				}
 			}
+
 		}
 	}
 
@@ -411,6 +424,10 @@ public class Jeu {
 			case 1 -> "" + m.force.getPointStatut();
 			default -> throw new IllegalArgumentException();
 		};
+	}
+
+	private void affichageItentionMonstre(double x, double y, Monstre m) {
+		Affichage.image(x, x + 40, y - 40, y, m.getIntention().getImage());
 	}
 
 }
