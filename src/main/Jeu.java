@@ -31,6 +31,8 @@ public class Jeu {
 	private SalleDeCombat salleB;
 	private Salle salleCourante;
 	private int[] salles;
+	private boolean alerte_energie = false;
+	private boolean alerte_choisit_carte = true;
 
 	// position joueur
 	private double x_joueur = Config.X_MAX * 0.2 - 183;
@@ -96,6 +98,16 @@ public class Jeu {
 		// Affichage de stats des monstres
 		affichageStatsMonstresModeGraphique();
 		affichageStatutsMonstreModeGraphique();
+
+		if (alerte_energie) {
+			alerte_energie = false;
+			Affichage.texteGauche(Config.X_MAX - 1000, Config.Y_MAX - 750, "Pass assez d'energie");
+		}
+
+		if (alerte_choisit_carte && joueur.getEnergie() > 0) {
+			alerte_choisit_carte = true;
+			Affichage.texteGauche(Config.X_MAX - 1000, Config.Y_MAX - 780, "Choisit une carte");
+		}
 
 		StdDraw.show(); // montre a l'ecran les changements demandés
 	}
@@ -250,6 +262,8 @@ public class Jeu {
 				display();
 			} else {
 				System.out.println("Pas assez d'energie");
+				alerte_energie = true;
+
 			}
 		}
 		display();
