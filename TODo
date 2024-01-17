@@ -3,6 +3,18 @@
 
 -mettre de la documentation pour les fonctions
 
+
+
+
+
+
+
+-Implementer changement de salle
+-------------------------------------------------------------------------------------------DEJA FAIT-----------------------------------------------------------------------
+-Implementer cout d'energie des carte
+-Implementer que le joeur puisse choisir quand finir sont tour
+-tester Carte Heurt et finir
+-Implementer pioche de carte
 -faire methode prepTourJoeur dans salleDeCombat qui fait:
     — Le héros pioche 5 cartes. (Section 3.4)
     — Son énergie actuelle devient son énergie par tour. (L’énergie restante
@@ -13,12 +25,3 @@
 -faire methode prepTourMonstre dans SalleDeCombat qui fait:
     — Chaque monstre perd tous ses points de blocage
     — Chaque monstre réalise son action selon son pattern
-
-
-
--Implementer changement de salle
--------------------------------------------------------------------------------------------DEJA FAIT-----------------------------------------------------------------------
--Implementer cout d'energie des carte
--Implementer que le joeur puisse choisir quand finir sont tour
--tester Carte Heurt et finir
--Implementer pioche de carte

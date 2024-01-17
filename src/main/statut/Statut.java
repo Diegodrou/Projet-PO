@@ -4,6 +4,7 @@ import java.io.File;
 
 public abstract class Statut {
     protected int pointStatut;
+    public static int nbStatuts = 2;
 
     private static String pathImageVulne = "pictures" + File.separator + "statuts" + File.separator
             + "Icon_Vulnerable.png";

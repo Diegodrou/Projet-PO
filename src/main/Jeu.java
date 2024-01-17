@@ -32,12 +32,21 @@ public class Jeu {
 	private Salle salleCourante;
 	private int[] salles;
 
+	// position joueur
+	private double x_joueur = Config.X_MAX * 0.2 - 183;
+	private double y_joueur = Config.Y_MAX * 0.5 - 130;// 338.5
+	private double x2_joueur = x_joueur + 366;
+	private double y2_joueur = y_joueur + 260;
+
+	// position monstre 1
 	private double x1 = Config.X_MAX * 0.4;
 	private double y1 = Config.Y_MAX * 0.5;
 
+	// position monstre 2
 	private double x2 = Config.X_MAX * 0.6;
 	private double y2 = Config.Y_MAX * 0.6;
 
+	// position monstre 3
 	private double x3 = Config.X_MAX * 0.8;
 	private double y3 = Config.Y_MAX * 0.5 - 60;
 
@@ -66,10 +75,7 @@ public class Jeu {
 		Affichage.image(0, Config.X_MAX, 0, Config.Y_MAX, pathBackground);
 
 		// Affichage du héros
-		String pathHeros = "pictures" + File.separator + "Ironclad.png";
-		Affichage.image(Config.X_MAX * 0.2 - 183, Config.X_MAX * 0.2 + 183, Config.Y_MAX * 0.5 - 130,
-				Config.Y_MAX * 0.5 + 130, pathHeros);
-
+		affichageJoueur();
 		// Affichage defausse
 		afficheDefausseModeGraphique();
 		// Affichage pioche
@@ -278,17 +284,26 @@ public class Jeu {
 	 * Affiche les stats du joueur
 	 */
 	private void affichageStatsJoueurModeGraphique() {
-		double initialStatutPosX = Config.X_MAX * 0.2;
-		double initialStatutPosX2 = Config.X_MAX * 0.2 + 30;
-		double initialStatuPosY = Config.Y_MAX * 0.5 + 130;
-		double initialStatuPosY2 = Config.Y_MAX * 0.5 + 150;
-		String pathStatutVul = "pictures" + File.separator + "statuts" + File.separator + "Icon_Vulnerable.png";
-		Affichage.texteGauche(Config.X_MAX * 0.2 - 100, Config.Y_MAX * 0.5 - 130, joueur.toString());
-		// Affichage vulnerabilité
-		int pointVul = joueur.vulnerabilite.getPointStatut();
-		if (pointVul > 0) {
-			Affichage.image(initialStatutPosX, initialStatutPosX2, initialStatuPosY, initialStatuPosY2, pathStatutVul);
-			Affichage.texteGauche(initialStatutPosX2, initialStatuPosY, "" + pointVul);
+		double x = Config.X_MAX * 0.2 - 100;
+		double y = Config.Y_MAX * 0.5 - 130;
+		double longeurImage = 20;
+		double largeurImage = 20;
+
+		Affichage.texteGauche(x, y, joueur.toString());
+		// Affichage statut
+		for (int a = 0; a < Statut.nbStatuts; a++) {
+			switch (a) {
+				case 0:
+					break;
+				case 1:
+					x += 25;
+					break;
+			}
+
+			if (Integer.valueOf(cherchePointStatutMonstre(joueur, a)) > 0) {
+				Affichage.image(x, x + longeurImage, y - largeurImage, y, Statut.imagesStatut[a]);
+				Affichage.texteGauche(x + 22, y, cherchePointStatutMonstre(joueur, a));
+			}
 		}
 
 	}
@@ -418,16 +433,21 @@ public class Jeu {
 		}
 	}
 
-	private String cherchePointStatutMonstre(Monstre m, int numStatut) {
+	private String cherchePointStatutMonstre(Entite e, int numStatut) {
 		return switch (numStatut) {
-			case 0 -> "" + m.vulnerabilite.getPointStatut();
-			case 1 -> "" + m.force.getPointStatut();
+			case 0 -> "" + e.vulnerabilite.getPointStatut();
+			case 1 -> "" + e.force.getPointStatut();
 			default -> throw new IllegalArgumentException();
 		};
 	}
 
 	private void affichageItentionMonstre(double x, double y, Monstre m) {
 		Affichage.image(x, x + 40, y - 40, y, m.getIntention().getImage());
+	}
+
+	private void affichageJoueur() {
+		String pathHeros = "pictures" + File.separator + "Ironclad.png";
+		Affichage.image(Config.X_MAX * 0.2 - 183, x2_joueur, Config.Y_MAX * 0.5 - 130, y2_joueur, pathHeros);
 	}
 
 }
