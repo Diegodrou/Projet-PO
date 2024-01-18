@@ -32,7 +32,7 @@ public class Jeu {
 	private Salle salleCourante;
 	private int[] salles;
 	private boolean alerte_energie = false;
-	private boolean alerte_choisit_carte = true;
+	private boolean alerte_choisit_carte = false;
 
 	// position joueur
 	private double x_joueur = Config.X_MAX * 0.2 - 183;
@@ -99,15 +99,18 @@ public class Jeu {
 		affichageStatsMonstresModeGraphique();
 		affichageStatutsMonstreModeGraphique();
 
+		// Alertes
 		if (alerte_energie) {
 			alerte_energie = false;
-			Affichage.texteGauche(Config.X_MAX - 1000, Config.Y_MAX - 750, "Pass assez d'energie");
+			Affichage.texteGaucheR(Config.X_MAX - 1000, Config.Y_MAX - 750, "Pass assez d'energie");
 		}
 
 		if (alerte_choisit_carte && joueur.getEnergie() > 0) {
-			alerte_choisit_carte = true;
-			Affichage.texteGauche(Config.X_MAX - 1000, Config.Y_MAX - 780, "Choisit une carte");
+			alerte_choisit_carte = false;
+			Affichage.texteGaucheV(Config.X_MAX - 1000, Config.Y_MAX - 780, "Choisit une carte");
 		}
+
+		// Affichage.texteGauche(100, 125, "Alerte-energie: " + alerte_energie);
 
 		StdDraw.show(); // montre a l'ecran les changements demandés
 	}
@@ -187,10 +190,14 @@ public class Jeu {
 	 */
 	private void tourDuJoueur() {
 		salleC.prepTourDeJoueur(joueur, pioche, defausse);
-		display();// Affiche les donnees apres preparation du tour
+
 		System.out.println("Choisit une carte");
+		alerte_choisit_carte = true;
+		display();// Affiche les donnees apres preparation du tour
 		boolean tourDuJoueur = true;
 		while (tourDuJoueur) {
+			alerte_choisit_carte = true;
+			display();
 			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
 			if (toucheSuivante.equals("1")) {
 				joueCarte(0);
@@ -266,7 +273,7 @@ public class Jeu {
 
 			}
 		}
-		display();
+		// display();
 	}
 
 	/**
