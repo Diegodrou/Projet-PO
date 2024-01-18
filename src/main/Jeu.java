@@ -202,6 +202,10 @@ public class Jeu {
 		display();// Affiche les donnees apres preparation du tour
 		boolean tourDuJoueur = true;
 		while (tourDuJoueur) {
+			if (!joueur.alive() || !isMonstreVivants()) {
+				tourDuJoueur = false;
+				break;
+			}
 			alerte_choisit_carte = true;
 			display();
 			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
@@ -538,5 +542,20 @@ public class Jeu {
 
 	private void affichageSalleCourante() {
 		Affichage.texteGauche((Config.X_MAX / 2) - 35, Config.Y_MAX - 20, salleCourante.toString());
+	}
+
+	private Boolean isMonstreVivants() {
+		int i = 0;
+		for (Monstre m : salleC.getMonstres()) {
+			if (!m.alive()) {
+				i++;
+			}
+		}
+
+		if (i == salleC.getMonstres().length) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

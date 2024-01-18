@@ -19,6 +19,9 @@ public class Main {
 				jeu.update();
 				// jeu.display();
 			}
+			System.out.println("Finis");
+			StdDraw.frame.setVisible(false);
+			StdDraw.frame.dispose();
 
 		} catch (Exception e) {
 			System.out.println("Erreur lors de l'execution du jeu : " + e.getMessage());
