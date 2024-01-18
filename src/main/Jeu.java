@@ -79,6 +79,9 @@ public class Jeu {
 		String pathBackground = "pictures" + File.separator + "background.jpg";
 		Affichage.image(0, Config.X_MAX, 0, Config.Y_MAX, pathBackground);
 
+		// Affichage salle courante
+		affichageSalleCourante();
+
 		// Affichage du héros
 		affichageJoueur();
 		// Affichage defausse
@@ -531,5 +534,9 @@ public class Jeu {
 			}
 		}
 
+	}
+
+	private void affichageSalleCourante() {
+		Affichage.texteGauche((Config.X_MAX / 2) - 35, Config.Y_MAX - 20, salleCourante.toString());
 	}
 }

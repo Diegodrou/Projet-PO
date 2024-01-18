@@ -105,9 +105,7 @@ public class SalleDeCombat extends Salle {
     public String toString() {
         // TODO Auto-generated method stub
         String txt = super.toString();
-        for (Monstre monstre : monstres) {
-            txt += monstre.toString() + "; ";
-        }
+        txt += "Combat";
 
         return txt;
     }
