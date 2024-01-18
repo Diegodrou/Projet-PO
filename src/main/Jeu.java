@@ -36,7 +36,6 @@ public class Jeu {
 	private boolean alerte_choisit_carte = false;
 	private boolean affichageDegatBool = false;
 	private int nb_cible = 0;
-	private String pathCursor = "pictures" + File.separator + "cursor_popup.png";
 
 	// position joueur
 	private double x_joueur = Config.X_MAX * 0.2 - 183;
@@ -115,8 +114,6 @@ public class Jeu {
 			alerte_choisit_carte = false;
 			Affichage.texteGaucheV(Config.X_MAX - 1000, Config.Y_MAX - 780, "Choisit une carte");
 		}
-
-		// Affichage.texteGauche(100, 125, "Alerte-energie: " + alerte_energie);
 
 		StdDraw.show(); // montre a l'ecran les changements demandés
 	}
@@ -493,9 +490,6 @@ public class Jeu {
 							new Color(255, 0, 0));
 				}
 			}
-
-			// Affichage.image(x1 - 35, x1 + longeur, y1 - largeur, y1 - 15, pathCursor)
-
 		}
 
 	}
