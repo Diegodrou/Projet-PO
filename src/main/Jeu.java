@@ -345,15 +345,24 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Affihche la pioche dans la fenetre
+	 */
 	private void affichePiocheModeGraphique() {
 		Affichage.texteGauche(Config.X_MAX * 0.1, Config.Y_MAX * 0.2, "Pioche: " + pioche.nb_carte());
 
 	}
 
+	/**
+	 * Affiche la defausse dans la fenetre
+	 */
 	private void afficheDefausseModeGraphique() {
 		Affichage.texteGauche(Config.X_MAX * 0.8, Config.Y_MAX * 0.2, "Defausse: " + defausse.nb_carte());
 	}
 
+	/**
+	 * Affiche les statistiques(pv,def,nom) des monstre dans la fenetre
+	 */
 	private void affichageStatsMonstresModeGraphique() {
 		double x = 0;
 		double y = 0;
@@ -383,12 +392,16 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Affiche les monstres dans la fenetre
+	 */
 	private void affichageMonstresMondeGraphique() {
 		double xMinInit = 0;
 		double yMaxInit = 0;
 		double espaceX = 20;
 		double espaceY = 35;
 
+		// Pour chaque monstre vivants il faut mettre la position correcte d'affichage
 		for (int i = 0; i < salleC.getMonstres().length; i++) {
 			switch (i) {
 				case 0:
@@ -416,6 +429,9 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Affiche les statuts des monstres
+	 */
 	private void affichageStatutsMonstreModeGraphique() {
 		double x = 0;
 		double y = 0;
@@ -423,6 +439,7 @@ public class Jeu {
 		double longeurImage = 20;
 		double largeurImage = 20;
 
+		// Pour chaque monstre vivants il faut mettre la position correcte d'affichage
 		for (int i = 0; i < salleC.getMonstres().length; i++) {
 			if (salleC.getMonstre(i).alive()) {
 				switch (i) {
@@ -439,7 +456,9 @@ public class Jeu {
 						y = y3 - salleC.getMonstre(i).getLargeurImage() - espace;
 						break;
 				}
-				for (int a = 0; a < 2; a++) {
+				// Pour chaque statut il faut mettre la postion correcte d'affichage dependant
+				// de la position du monstre
+				for (int a = 0; a < Statut.nbStatuts; a++) {
 					switch (a) {
 						case 0:
 							break;
@@ -447,7 +466,7 @@ public class Jeu {
 							x += 25;
 							break;
 					}
-
+					// Affiche le statut seulment si il est active
 					if (Integer.valueOf(cherchePointStatutMonstre(salleC.getMonstre(i), a)) > 0) {
 						Affichage.image(x, x + longeurImage, y - largeurImage, y, Statut.imagesStatut[a]);
 						Affichage.texteGauche(x + 22, y, cherchePointStatutMonstre(salleC.getMonstre(i), a));
@@ -459,6 +478,13 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Retourne les points de statut d'un statut specifique d'une entité(un String)
+	 * 
+	 * @param e         est un objet qui représente une entité
+	 * @param numStatut est entier qui represente un statut
+	 * @return un String representant les points d'un statut specifique d'une entité
+	 */
 	private String cherchePointStatutMonstre(Entite e, int numStatut) {
 		return switch (numStatut) {
 			case 0 -> "" + e.vulnerabilite.getPointStatut();
@@ -467,15 +493,28 @@ public class Jeu {
 		};
 	}
 
+	/**
+	 * Affiche l'intention du monstre dans la fenetre
+	 * 
+	 * @param x cordonnée x d'affichage
+	 * @param y cordonnée y d'affichage
+	 * @param m un objet qui représente un monstre
+	 */
 	private void affichageItentionMonstre(double x, double y, Monstre m) {
 		Affichage.image(x, x + 40, y - 40, y, m.getIntention().getImage());
 	}
 
+	/**
+	 * Affiche le joeur dans la fenetre
+	 */
 	private void affichageJoueur() {
 		String pathHeros = "pictures" + File.separator + "Ironclad.png";
 		Affichage.image(Config.X_MAX * 0.2 - 183, x2_joueur, Config.Y_MAX * 0.5 - 130, y2_joueur, pathHeros);
 	}
 
+	/**
+	 * Affiche le monstre au quel le joueur a fait du dégats
+	 */
 	private void affichageDegats() {
 
 		Monstre m = salleC.getMonstre(nb_cible);
