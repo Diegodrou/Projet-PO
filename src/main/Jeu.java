@@ -1,6 +1,7 @@
 /** package principal */
 package main;
 
+import java.awt.Color;
 import java.io.File;
 
 import librairies.StdDraw;
@@ -33,6 +34,9 @@ public class Jeu {
 	private int[] salles;
 	private boolean alerte_energie = false;
 	private boolean alerte_choisit_carte = false;
+	private boolean affichageDegatBool = false;
+	private int nb_cible = 0;
+	private String pathCursor = "pictures" + File.separator + "cursor_popup.png";
 
 	// position joueur
 	private double x_joueur = Config.X_MAX * 0.2 - 183;
@@ -98,6 +102,8 @@ public class Jeu {
 		// Affichage de stats des monstres
 		affichageStatsMonstresModeGraphique();
 		affichageStatutsMonstreModeGraphique();
+
+		affichageDegats();
 
 		// Alertes
 		if (alerte_energie) {
@@ -242,6 +248,8 @@ public class Jeu {
 	}
 
 	private void effectueActionSurCible(int cible) {
+		affichageDegatBool = true;
+		nb_cible = cible;
 		System.out.println("Vous avez choisi montre " + (cible + 1));
 		if (salleC.regarderSiMonstreVivant(cible)) {
 			salleC.setCibleDuJoueur(cible);
@@ -471,4 +479,24 @@ public class Jeu {
 		Affichage.image(Config.X_MAX * 0.2 - 183, x2_joueur, Config.Y_MAX * 0.5 - 130, y2_joueur, pathHeros);
 	}
 
+	private void affichageDegats() {
+
+		Monstre m = salleC.getMonstre(nb_cible);
+		if (affichageDegatBool) {
+			affichageDegatBool = false;
+			if (m.alive()) {
+				switch (nb_cible) {
+					case 0 ->
+						Affichage.rectangleContour(x1, x1 + m.getLongeurImage(), y1 - m.getLargeurImage(), y1,
+								new Color(255, 0, 0));
+					case 1 -> Affichage.rectangleContour(x2, x2 + m.getLongeurImage(), y2 - m.getLargeurImage(), y2,
+							new Color(255, 0, 0));
+				}
+			}
+
+			// Affichage.image(x1 - 35, x1 + longeur, y1 - largeur, y1 - 15, pathCursor)
+
+		}
+
+	}
 }
