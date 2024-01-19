@@ -35,6 +35,7 @@ public class Jeu {
 	private boolean alerte_energie = false;
 	private boolean alerte_choisit_carte = false;
 	private boolean affichageDegatBool = false;
+	private boolean alerteTouchesCibles = false;
 	private int nb_cible = 0;
 
 	// position joueur
@@ -105,6 +106,7 @@ public class Jeu {
 		affichageStatsMonstresModeGraphique();
 		affichageStatutsMonstreModeGraphique();
 
+		affichageTouchesCible();
 		affichageDegats();
 
 		// Alertes
@@ -238,6 +240,8 @@ public class Jeu {
 			salleC.performerActionsJoueur(joueur);
 			salleC.carteToDefausse(joueur, defausse);
 		} else {
+			alerteTouchesCibles = true;
+			display();
 			System.out.println("Choisit une cible");
 			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
 			if (toucheSuivante.equals("1")) {
@@ -556,6 +560,41 @@ public class Jeu {
 			return false;
 		} else {
 			return true;
+		}
+	}
+
+	/**
+	 * Affiche les touches que il faut pressioné pour selectioner la cible d'une
+	 * carte
+	 */
+	private void affichageTouchesCible() {
+		double x = 0;
+		double y = 0;
+
+		if (alerteTouchesCibles) {
+			alerteTouchesCibles = false;
+			System.out.println("here");
+			for (int i = 0; i < salleC.getMonstres().length; i++) {
+				Monstre m = salleC.getMonstre(i);
+				if (m.alive()) {
+					switch (i) {
+						case 0:
+							x = x1;
+							y = y1;
+							break;
+						case 1:
+							x = x2;
+							y = y2;
+							break;
+						case 2:
+							x = x3;
+							y = y3;
+							break;
+					}
+					Affichage.texteGaucheV(x - 25, y + 10, "Pressione " + (i + 1));
+				}
+
+			}
 		}
 	}
 }
