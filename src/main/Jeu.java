@@ -5,14 +5,14 @@ import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 
 import librairies.StdDraw;
 import main.actions.carte.Carte;
 import main.actions.carte.Defense;
 import main.actions.carte.Frappe;
 import main.actions.carte.Heurt;
-import main.salle.Recompense;
+import main.salle.Boss;
+import main.salle.Repos;
 import main.salle.Salle;
 import main.salle.SalleDeCombat;
 import main.statut.Statut;
@@ -29,13 +29,14 @@ public class Jeu {
 
 	private Heros joueur;
 	private boolean over;
+	private boolean uneDePlus = false;
 	private Deck deck;
 	private Pioche pioche;
 	private Defausse defausse;
 	private int indexSalleCourante;
 	private int indexSalleAvant;
 	private SalleDeCombat salleC;
-	private SalleDeCombat salleR;
+	private Repos salleR;
 	private SalleDeCombat salleB;
 	private Salle salleCourante;
 	private int[] salles;
@@ -44,6 +45,7 @@ public class Jeu {
 	private boolean affichageDegatBool = false;
 	private boolean alerteTouchesCibles = false;
 	private boolean alerteRecompense = false;
+	private boolean alerteJouerDeNouveau = false;
 	private int nb_cible = 0;
 	private Recompense recompense;
 	private Carte[] cartesRecomp;
@@ -64,7 +66,7 @@ public class Jeu {
 
 	// position monstre 3
 	private double x3 = Config.X_MAX * 0.8;
-	private double y3 = Config.Y_MAX * 0.5 - 60;
+	private double y3 = Config.Y_MAX * 0.5;
 
 	// Position menu recompense
 	private double x_menu_r = Config.X_MAX * 0.5 - 250;
@@ -102,7 +104,7 @@ public class Jeu {
 		defausse = new Defausse();
 		indexSalleCourante = 0;
 		indexSalleAvant = 0;
-		salles = new int[] { 1, 1, 1 };
+		salles = new int[] { 1, 2, 3 };
 		over = false;
 		initisaliserSalle(determinerTypeSalle());
 
@@ -124,10 +126,12 @@ public class Jeu {
 
 		// Affichage du héros
 		affichageJoueur();
+		// Affichage des stats du joueur
+		affichageStatsJoueurModeGraphique();
 		if (salleCourante instanceof SalleDeCombat) {
 			affichageSalleCombat();
-		} else if (salleCourante instanceof Salle) {
-
+		} else if (salleCourante instanceof Repos) {
+			affichageSalleRepos();
 		}
 
 		StdDraw.show(); // montre a l'ecran les changements demandés
@@ -161,12 +165,19 @@ public class Jeu {
 			salleC = new SalleDeCombat(new Monstre[] { new PetitSlimePiquant(), new Machouilleur() });
 			salleC.initialiserPioches(deck, pioche);
 			salleCourante = salleC;
+		} else if (typeSalle == 2) {
+			salleR = new Repos();
+			salleCourante = salleR;
+		} else if (typeSalle == 3) {
+			salleC = new Boss();
+			salleC.initialiserPioches(deck, pioche);
+			salleCourante = salleC;
 		}
 	}
 
 	private void gererSalle() {
 		if (salleCourante.isActive()) {
-			logiqueSalles(1);
+			logiqueSalles(determinerTypeSalle());
 		} else {
 			indexSalleCourante++;
 		}
@@ -184,10 +195,7 @@ public class Jeu {
 
 	private void logiqueSalleDeCombat() {
 		tourDuJoueur();
-		// display();
-		System.out.println("Tour des monstres");
 		salleC.performerActionSalle(joueur);
-		affichageModeTexte();
 		display();
 
 		if (!salleC.isMonstersAlive()) {
@@ -195,18 +203,42 @@ public class Jeu {
 			defausse = new Defausse();
 			alerteRecompense = true;
 			recompenserJoueur();
+			joueur.reset();
+			salleC.desactiver();
 
-			salleC.desactiver(joueur);
-
+		}
+		if (!joueur.alive()) {
+			jouerDeNouveau();
 		}
 	}
 
 	private void logiqueSalleRepos() {
+		boolean enRepos = true;
+		display();
+		while (enRepos) {
+			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
+			if (toucheSuivante.equals("Entrée")) {
+				salleR.performerActionSalle(joueur);
+				enRepos = false;
+			} else {
+
+			}
+		}
+		salleR.desactiver();
 
 	}
 
 	private void logiqueSalleBoss() {
+		tourDuJoueur();
+		salleC.performerActionSalle(joueur);
+		display();
+		if (!salleC.isMonstersAlive()) {
+			jouerDeNouveau();
+		}
 
+		if (!joueur.alive()) {
+			jouerDeNouveau();
+		}
 	}
 
 	/**
@@ -214,8 +246,6 @@ public class Jeu {
 	 */
 	private void tourDuJoueur() {
 		salleC.prepTourDeJoueur(joueur, pioche, defausse);
-
-		System.out.println("Choisit une carte");
 		alerte_choisit_carte = true;
 		display();// Affiche les donnees apres preparation du tour
 		boolean tourDuJoueur = true;
@@ -239,12 +269,10 @@ public class Jeu {
 				joueCarte(4);
 			} else if (toucheSuivante.equals("Entrée")) {
 				tourDuJoueur = false;
-				affichageModeTexte();
 				display();
 			} else {
 				System.out.println("Autre touche");
 			}
-			System.out.println("Appuyer sur la touche Entrée pour finir le tour");
 
 		}
 		salleC.actionsFinTourJoueur(joueur);
@@ -258,7 +286,6 @@ public class Jeu {
 		} else {
 			alerteTouchesCibles = true;
 			display();
-			System.out.println("Choisit une cible");
 			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
 			if (toucheSuivante.equals("1")) {
 				effectueActionSurCible(0);
@@ -274,7 +301,6 @@ public class Jeu {
 	private void effectueActionSurCible(int cible) {
 		affichageDegatBool = true;
 		nb_cible = cible;
-		System.out.println("Vous avez choisi montre " + (cible + 1));
 		if (salleC.regarderSiMonstreVivant(cible)) {
 			salleC.setCibleDuJoueur(cible);
 			salleC.performerActionsJoueur(joueur);
@@ -294,13 +320,10 @@ public class Jeu {
 	private void joueCarte(int n) {
 		if ((n >= 0 || n < 5) && (joueur.getCarteDeLaMain(n) != null)) {
 			if (joueur.getCarteDeLaMain(n).getCout() <= joueur.getEnergie()) {
-				System.out.println("Vous avez choisie la carte " + (n + 1));
 				joueur.setCarteChoisie(n);
 				choisir_cible();
-				affichageModeTexte();
 				display();
 			} else {
-				System.out.println("Pas assez d'energie");
 				alerte_energie = true;
 
 			}
@@ -589,7 +612,6 @@ public class Jeu {
 
 		if (alerteTouchesCibles) {
 			alerteTouchesCibles = false;
-			System.out.println("here");
 			for (int i = 0; i < salleC.getMonstres().length; i++) {
 				Monstre m = salleC.getMonstre(i);
 				if (m.alive()) {
@@ -607,7 +629,7 @@ public class Jeu {
 							y = y3;
 							break;
 					}
-					Affichage.texteGaucheV(x - 25, y + 10, "Pressione " + (i + 1));
+					Affichage.texteGaucheV(x - 25, y + 10, "Appuie " + (i + 1));
 				}
 
 			}
@@ -619,8 +641,7 @@ public class Jeu {
 		afficheDefausseModeGraphique();
 		// Affichage pioche
 		affichePiocheModeGraphique();
-		// Affichage des stats du joueur
-		affichageStatsJoueurModeGraphique();
+
 		// Affichage des stats des monstres
 
 		// Affichage carte dans la main
@@ -653,6 +674,9 @@ public class Jeu {
 		if (alerteRecompense) {
 			affichageRecompense();
 		}
+		if (alerteJouerDeNouveau) {
+			affichageJouerDeNouveau();
+		}
 	}
 
 	private void recompenserJoueur() {
@@ -682,7 +706,6 @@ public class Jeu {
 			} else if (toucheSuivante.equals("n")) {
 				decisionFaite = true;
 			} else {
-				System.out.println("klk");
 			}
 		}
 		alerteRecompense = false;
@@ -701,6 +724,41 @@ public class Jeu {
 		y -= 100;
 		Affichage.texteGauche(x, y, "n-Aucune");
 
+	}
+
+	private void affichageSalleRepos() {
+		Affichage.texteGaucheV(Config.X_MAX * 0.5 - 200, Config.Y_MAX * 0.5,
+				"Appuyer Entreer pour soigner vous Soigner");
+	}
+
+	private void jouerDeNouveau() {
+		alerteJouerDeNouveau = true;
+		boolean mortFinis = true;
+		display();
+		while (mortFinis) {
+			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
+			if (toucheSuivante.equals("y")) {
+				uneDePlus = true;
+				mortFinis = false;
+			} else if (toucheSuivante.equals("n")) {
+				over = true;
+				mortFinis = false;
+			}
+
+		}
+		alerteJouerDeNouveau = false;
+
+	}
+
+	public boolean getUneDePlus() {
+		return uneDePlus;
+	}
+
+	private void affichageJouerDeNouveau() {
+		double x = x_menu_r;
+		double y = y_menu_r - 25;
+		Affichage.rectanglePlein(x_menu_r, x_menu_r + 500, y_menu_r - 500, y_menu_r, new Color(128, 0, 32));
+		Affichage.texteGauche(x + 10, y - 200, "Appuie Y pour refaire une partie et N pour sortir du jeu");
 	}
 
 }

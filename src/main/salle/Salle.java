@@ -22,6 +22,10 @@ public abstract class Salle {
         return active;
     }
 
+    public void desactiver() {
+        active = false;
+    }
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub

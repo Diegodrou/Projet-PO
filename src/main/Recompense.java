@@ -1,4 +1,4 @@
-package main.salle;
+package main;
 
 import java.util.List;
 import java.util.Random;
@@ -16,18 +16,20 @@ public class Recompense {
     }
 
     public Carte getCarte() {
+
         double p = Math.random();
-        System.out.println("p = " + p);
+        while (!(p <= 0.93)) {
+            p = Math.random();
+        }
         double probaCumaltive = 0.0;
         for (int i = 0; i < cartes.size(); i++) {
             probaCumaltive += probs[i];
-            System.out.println(probaCumaltive);
             if (p <= probaCumaltive) {
                 return getRandomCarte(cartes.get(i));
             }
         }
 
-        throw new UnknownError("erreur getRecompense");
+        throw new UnknownError("erreur: p > probaCu");
     }
 
     private Carte getRandomCarte(List<Carte> lCarte) {

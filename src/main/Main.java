@@ -17,7 +17,10 @@ public class Main {
 			// StdDraw.show() pour afficher ce qui est dans le buffer
 			while (!jeu.isOver()) {
 				jeu.update();
-				// jeu.display();
+				if (jeu.getUneDePlus()) {
+					jeu = new Jeu();
+					StdDraw.show();
+				}
 			}
 			System.out.println("Finis");
 			StdDraw.frame.setVisible(false);

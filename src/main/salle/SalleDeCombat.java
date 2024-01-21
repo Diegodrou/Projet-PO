@@ -229,9 +229,4 @@ public class SalleDeCombat extends Salle {
         return monstres[index];
     }
 
-    public void desactiver(Heros heros) {
-        heros.reset();
-        active = false;
-    }
-
 }

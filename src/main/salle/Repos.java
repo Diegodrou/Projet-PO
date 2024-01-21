@@ -8,11 +8,6 @@ public class Repos extends Salle {
 
     }
 
-    @Override
-    public void performerActionSalle(Heros heros) {
-        soigner(heros);
-    }
-
     /**
      * Soigne le heros de 30% de ses point de vie maximum
      * 
@@ -27,6 +22,19 @@ public class Repos extends Salle {
             heros.setPv(heros.getPv() + quantitePv);
         }
 
+    }
+
+    @Override
+    public void performerActionSalle(Heros heros) {
+        soigner(heros);
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        String txt = super.toString();
+        txt += "Repos";
+        return txt;
     }
 
 }

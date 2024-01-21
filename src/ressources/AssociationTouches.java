@@ -32,6 +32,7 @@ public class AssociationTouches {
         clavier.put(KeyEvent.VK_4, "4");
         clavier.put(KeyEvent.VK_5, "5");
         clavier.put(KeyEvent.VK_N, "n");
+        clavier.put(KeyEvent.VK_Y, "y");
         // Attention les touches absente d'un clavier QWERTY ("2/é", "9/ç", par
         // exemple), sont incompatibles avec StdDraw.
     }
