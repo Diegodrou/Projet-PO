@@ -3,13 +3,10 @@
 
 -mettre de la documentation pour les fonctions
 
+-Implementer changement de salle:
+  -changement de salle
 
-
-
-
-
-
--Implementer changement de salle
+-implementer une carte Rare et Une carte non-commune
 -------------------------------------------------------------------------------------------DEJA FAIT-----------------------------------------------------------------------
 -Implementer cout d'energie des carte
 -Implementer que le joeur puisse choisir quand finir sont tour
@@ -25,3 +22,5 @@
 -faire methode prepTourMonstre dans SalleDeCombat qui fait:
     — Chaque monstre perd tous ses points de blocage
     — Chaque monstre réalise son action selon son pattern
+
+-affichage des recompenses

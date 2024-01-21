@@ -34,7 +34,7 @@ public class MouvAleatoire extends Mouvement {
             }
         }
 
-        return null;
+        throw new UnknownError("erreur mouvAleatoire");
     }
 
 }

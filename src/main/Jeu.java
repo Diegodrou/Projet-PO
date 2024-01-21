@@ -3,9 +3,16 @@ package main;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
 
 import librairies.StdDraw;
 import main.actions.carte.Carte;
+import main.actions.carte.Defense;
+import main.actions.carte.Frappe;
+import main.actions.carte.Heurt;
+import main.salle.Recompense;
 import main.salle.Salle;
 import main.salle.SalleDeCombat;
 import main.statut.Statut;
@@ -36,7 +43,10 @@ public class Jeu {
 	private boolean alerte_choisit_carte = false;
 	private boolean affichageDegatBool = false;
 	private boolean alerteTouchesCibles = false;
+	private boolean alerteRecompense = false;
 	private int nb_cible = 0;
+	private Recompense recompense;
+	private Carte[] cartesRecomp;
 
 	// position joueur
 	private double x_joueur = Config.X_MAX * 0.2 - 183;
@@ -56,7 +66,36 @@ public class Jeu {
 	private double x3 = Config.X_MAX * 0.8;
 	private double y3 = Config.Y_MAX * 0.5 - 60;
 
+	// Position menu recompense
+	private double x_menu_r = Config.X_MAX * 0.5 - 250;
+	private double y_menu_r = Config.Y_MAX * 0.8 - 50;
+
 	public Jeu() throws Exception {
+		// instanciation carte commune
+		cartesRecomp = new Carte[3];
+		List<Carte> carteCommunes = new ArrayList<>();
+		carteCommunes.add(new Frappe());
+		carteCommunes.add(new Heurt());
+		carteCommunes.add(new Defense());
+
+		// instanciation carte Non-Commmunes
+		List<Carte> carteNonCommunes = new ArrayList<>();
+		// pour tester
+		carteNonCommunes.add(new Frappe());
+
+		// instanciation des cartes Rares
+		List<Carte> carteRare = new ArrayList<>();
+		// pour tester
+		carteRare.add(new Defense());
+
+		List<List<Carte>> toutesLesCartes = new ArrayList<>();
+
+		toutesLesCartes.add(carteCommunes);
+		toutesLesCartes.add(carteNonCommunes);
+		toutesLesCartes.add(carteRare);
+
+		recompense = new Recompense(toutesLesCartes);
+
 		joueur = new Heros(70, 3);
 		deck = new Deck();
 		pioche = new Pioche();
@@ -85,39 +124,10 @@ public class Jeu {
 
 		// Affichage du héros
 		affichageJoueur();
-		// Affichage defausse
-		afficheDefausseModeGraphique();
-		// Affichage pioche
-		affichePiocheModeGraphique();
-		// Affichage des stats du joueur
-		affichageStatsJoueurModeGraphique();
-		// Affichage des stats des monstres
+		if (salleCourante instanceof SalleDeCombat) {
+			affichageSalleCombat();
+		} else if (salleCourante instanceof Salle) {
 
-		// Affichage carte dans la main
-		afficheCarteMainModeGraphique();
-
-		// Affichage finir tour
-		Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 20, "Entrée - Finir tour");
-
-		// Affichage monstres
-		affichageMonstresMondeGraphique();
-
-		// Affichage de stats des monstres
-		affichageStatsMonstresModeGraphique();
-		affichageStatutsMonstreModeGraphique();
-
-		affichageTouchesCible();
-		affichageDegats();
-
-		// Alertes
-		if (alerte_energie) {
-			alerte_energie = false;
-			Affichage.texteGaucheR(Config.X_MAX - 1000, Config.Y_MAX - 750, "Pass assez d'energie");
-		}
-
-		if (alerte_choisit_carte && joueur.getEnergie() > 0) {
-			alerte_choisit_carte = false;
-			Affichage.texteGaucheV(Config.X_MAX - 1000, Config.Y_MAX - 780, "Choisit une carte");
 		}
 
 		StdDraw.show(); // montre a l'ecran les changements demandés
@@ -180,8 +190,14 @@ public class Jeu {
 		affichageModeTexte();
 		display();
 
-		if (!joueur.alive() || !salleC.isMonstersAlive()) {
-			over = true;
+		if (!salleC.isMonstersAlive()) {
+			pioche = new Pioche();
+			defausse = new Defausse();
+			alerteRecompense = true;
+			recompenserJoueur();
+
+			salleC.desactiver(joueur);
+
 		}
 	}
 
@@ -597,4 +613,94 @@ public class Jeu {
 			}
 		}
 	}
+
+	private void affichageSalleCombat() {
+		// Affichage defausse
+		afficheDefausseModeGraphique();
+		// Affichage pioche
+		affichePiocheModeGraphique();
+		// Affichage des stats du joueur
+		affichageStatsJoueurModeGraphique();
+		// Affichage des stats des monstres
+
+		// Affichage carte dans la main
+		afficheCarteMainModeGraphique();
+
+		// Affichage finir tour
+		Affichage.texteDroite(Config.X_MAX - 50, Config.Y_MAX - 20, "Entrée - Finir tour");
+
+		// Affichage monstres
+		affichageMonstresMondeGraphique();
+
+		// Affichage de stats des monstres
+		affichageStatsMonstresModeGraphique();
+		affichageStatutsMonstreModeGraphique();
+
+		affichageTouchesCible();
+
+		// Alertes
+		affichageDegats();
+		if (alerte_energie) {
+			alerte_energie = false;
+			Affichage.texteGaucheR(Config.X_MAX - 1000, Config.Y_MAX - 750, "Pass assez d'energie");
+		}
+
+		if (alerte_choisit_carte && joueur.getEnergie() > 0) {
+			alerte_choisit_carte = false;
+			Affichage.texteGaucheV(Config.X_MAX - 1000, Config.Y_MAX - 780, "Choisit une carte");
+		}
+
+		if (alerteRecompense) {
+			affichageRecompense();
+		}
+	}
+
+	private void recompenserJoueur() {
+
+		boolean decisionFaite = false;
+
+		for (int i = 0; i < cartesRecomp.length; i++) {
+			cartesRecomp[i] = recompense.getCarte();
+		}
+
+		display();
+
+		while (!decisionFaite) {
+			String toucheSuivante = AssociationTouches.trouveProchaineEntree();
+			if (toucheSuivante.equals("1")) {
+				decisionFaite = true;
+				deck.ajouteCarte(cartesRecomp[0]);
+
+			} else if (toucheSuivante.equals("2")) {
+				decisionFaite = true;
+				deck.ajouteCarte(cartesRecomp[1]);
+
+			} else if (toucheSuivante.equals("3")) {
+				decisionFaite = true;
+				deck.ajouteCarte(cartesRecomp[2]);
+
+			} else if (toucheSuivante.equals("n")) {
+				decisionFaite = true;
+			} else {
+				System.out.println("klk");
+			}
+		}
+		alerteRecompense = false;
+
+	}
+
+	private void affichageRecompense() {
+		double x = x_menu_r;
+		double y = y_menu_r - 25;
+		Affichage.rectanglePlein(x_menu_r, x_menu_r + 500, y_menu_r - 500, y_menu_r, new Color(128, 0, 32));
+		Affichage.texteGauche(x + 125, y, "Choisit une carte ou aucune:");
+		for (int i = 0; i < cartesRecomp.length; i++) {
+			y -= 100;
+			Affichage.texteGauche(x, y, (i + 1) + "-" + cartesRecomp[i].toString());
+		}
+		y -= 100;
+		Affichage.texteGauche(x, y, "n-Aucune");
+
+	}
+
 }

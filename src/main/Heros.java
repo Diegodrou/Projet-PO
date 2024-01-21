@@ -84,6 +84,11 @@ public class Heros extends Entite {
         nb_carte_main--;
     }
 
+    public void reset() {
+        main = new Carte[MAX_NB_CARTES_MAIN];
+        nb_carte_main = 0;
+    }
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub

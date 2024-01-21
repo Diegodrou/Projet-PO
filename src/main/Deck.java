@@ -36,6 +36,8 @@ public class Deck {
 
     public void ajouteCarte(Carte carte) {
         cartes.add(carte);
+        copieCartes = new ArrayList<>();
+        copieCartes.addAll(cartes);
         nb_util_max++;
     }
 

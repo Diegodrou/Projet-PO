@@ -34,7 +34,6 @@ public class SalleDeCombat extends Salle {
         this.cibleDuJoueur = cibleDuJoueur;
     }
 
-    @Override
     /**
      * Cette fonction :
      * 1-Identifie si la carte choisi par le joueur est applicable a un monstre ou a
@@ -222,16 +221,17 @@ public class SalleDeCombat extends Salle {
         heros.supprimeCarteMain();
     }
 
-    public void regarderSiActive() {
-
-    }
-
     public boolean regarderSiMonstreVivant(int cible) {
         return monstres[cible].alive();
     }
 
     public Monstre getMonstre(int index) {
         return monstres[index];
+    }
+
+    public void desactiver(Heros heros) {
+        heros.reset();
+        active = false;
     }
 
 }

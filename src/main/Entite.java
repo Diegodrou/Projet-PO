@@ -36,16 +36,16 @@ public abstract class Entite {
         return pv;
     }
 
+    public int getPVMax() {
+        return pvMax;
+    }
+
     public int getBlock() {
         return block;
     }
 
     public boolean alive() {
         return (getPv() > 0);
-    }
-
-    public Vulnerabilite getVulnerabilite() {
-        return vulnerabilite;
     }
 
 }
