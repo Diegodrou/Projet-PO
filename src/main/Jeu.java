@@ -10,6 +10,7 @@ import librairies.StdDraw;
 import main.actions.carte.Carte;
 import main.actions.carte.Defense;
 import main.actions.carte.Frappe;
+import main.actions.carte.Gourdin;
 import main.actions.carte.Heurt;
 import main.actions.carte.Saignee;
 import main.salle.Boss;
@@ -84,13 +85,11 @@ public class Jeu {
 
 		// instanciation carte Non-Commmunes
 		List<Carte> carteNonCommunes = new ArrayList<>();
-		// pour tester
 		carteNonCommunes.add(new Saignee());
 
 		// instanciation des cartes Rares
 		List<Carte> carteRare = new ArrayList<>();
-		// pour tester
-		carteRare.add(new Defense());
+		carteRare.add(new Gourdin());
 
 		List<List<Carte>> toutesLesCartes = new ArrayList<>();
 
@@ -739,7 +738,7 @@ public class Jeu {
 
 	private void affichageSalleRepos() {
 		Affichage.texteGaucheV(Config.X_MAX * 0.5 - 200, Config.Y_MAX * 0.5,
-				"Appuyer Entreer pour soigner vous Soigner");
+				"Appuyer Entreer pour vous Soigner");
 	}
 
 	private void jouerDeNouveau() {

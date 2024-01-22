@@ -7,7 +7,7 @@ public class Saignee extends Carte {
 
     public Saignee() {
         super("Heros", 0, 0, 0);
-        setNomCarte("Saignee");
+        setNomCarte("Saignée");
     }
 
     @Override
