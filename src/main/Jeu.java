@@ -11,6 +11,7 @@ import main.actions.carte.Carte;
 import main.actions.carte.Defense;
 import main.actions.carte.Frappe;
 import main.actions.carte.Heurt;
+import main.actions.carte.Saignee;
 import main.salle.Boss;
 import main.salle.Repos;
 import main.salle.Salle;
@@ -84,7 +85,7 @@ public class Jeu {
 		// instanciation carte Non-Commmunes
 		List<Carte> carteNonCommunes = new ArrayList<>();
 		// pour tester
-		carteNonCommunes.add(new Frappe());
+		carteNonCommunes.add(new Saignee());
 
 		// instanciation des cartes Rares
 		List<Carte> carteRare = new ArrayList<>();
