@@ -106,7 +106,7 @@ public class Jeu {
 		defausse = new Defausse();
 		indexSalleCourante = 0;
 		indexSalleAvant = 0;
-		salles = new int[] { 1, 2, 3 };
+		salles = new int[] { 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 3 };
 		over = false;
 		initisaliserSalle(determinerTypeSalle());
 
@@ -772,15 +772,36 @@ public class Jeu {
 	}
 
 	private Monstre[] determinerMonstres() {
-		Monstre[] debut = { new PetitSlimePiquant(), new PetitSlimeAcide(), new Machouilleur() };
-		Monstre[] fin = new Monstre[3];
+		boolean run = true;
+		Monstre[] ms = new Monstre[3];
+		while (run) {
+			ms = getEquipeMonstre();
+			if (!regarderNbMachouilleur(ms)) {
+				run = false;
+			}
+		}
+		return ms;
+	}
+
+	private Monstre[] getEquipeMonstre() {
 		Random r = new Random();
+		Monstre[] fin = new Monstre[3];
 		for (int i = 0; i < fin.length; i++) {
+			Monstre[] debut = { new PetitSlimePiquant(), new PetitSlimeAcide(), new Machouilleur() };
 			int numero = r.nextInt(debut.length);
 			fin[i] = debut[numero];
 		}
-
 		return fin;
+	}
+
+	private boolean regarderNbMachouilleur(Monstre[] ms) {
+		int nb = 0;
+		for (Monstre monstre : ms) {
+			if (monstre instanceof Machouilleur) {
+				nb++;
+			}
+		}
+		return nb >= 3;
 	}
 
 }
