@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import librairies.StdDraw;
 import main.actions.carte.Carte;
@@ -68,7 +69,7 @@ public class Jeu {
 	private double y2 = Config.Y_MAX * 0.6;
 
 	// position monstre 3
-	private double x3 = Config.X_MAX * 0.8;
+	private double x3 = Config.X_MAX * 0.8 - 15;
 	private double y3 = Config.Y_MAX * 0.5;
 
 	// Position menu recompense
@@ -167,8 +168,7 @@ public class Jeu {
 
 	private void initisaliserSalle(int typeSalle) {
 		if (typeSalle == 1) {
-			salleC = new SalleDeCombat(
-					new Monstre[] { new PetitSlimePiquant(), new Machouilleur(), new PetitSlimeAcide() });
+			salleC = new SalleDeCombat(determinerMonstres());
 			salleC.initialiserPioches(deck, pioche);
 			salleCourante = salleC;
 		} else if (typeSalle == 2) {
@@ -769,6 +769,18 @@ public class Jeu {
 		double y = y_menu_r - 25;
 		Affichage.rectanglePlein(x_menu_r, x_menu_r + 500, y_menu_r - 500, y_menu_r, new Color(128, 0, 32));
 		Affichage.texteGauche(x + 10, y - 200, "Appuie Y pour refaire une partie et N pour sortir du jeu");
+	}
+
+	private Monstre[] determinerMonstres() {
+		Monstre[] debut = { new PetitSlimePiquant(), new PetitSlimeAcide(), new Machouilleur() };
+		Monstre[] fin = new Monstre[3];
+		Random r = new Random();
+		for (int i = 0; i < fin.length; i++) {
+			int numero = r.nextInt(debut.length);
+			fin[i] = debut[numero];
+		}
+
+		return fin;
 	}
 
 }
