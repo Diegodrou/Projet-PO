@@ -33,7 +33,12 @@ public class Heros extends Entite {
     }
 
     public void setEnergie(int energie) {
-        this.energie = energie;
+        if (energie > energieMax) {
+            this.energie = energieMax;
+        } else {
+            this.energie = energie;
+        }
+
     }
 
     public int getCarteChoisie() {
