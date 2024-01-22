@@ -14,7 +14,7 @@ public class Gronder extends Mouvement {
 
     @Override
     public void effetDeMouvement(Entite cible, Entite thisEntite) {
-        effetBlockage(thisEntite);
+        effetBlockage(thisEntite, new int[] { 3 });
         thisEntite.force.ajoutePointStatut(3);
 
     }

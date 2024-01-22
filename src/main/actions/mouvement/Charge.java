@@ -13,8 +13,8 @@ public class Charge extends Mouvement {
 
     @Override
     public void effetDeMouvement(Entite cible, Entite thisEntite) {
-        effetDegats(cible, thisEntite, new int[0]);
-        effetBlockage(thisEntite);
+        effetDegats(cible, thisEntite, new int[] { 2, 1 });
+        effetBlockage(thisEntite, new int[] { 3 });
     }
 
 }

@@ -11,7 +11,7 @@ public class Defense extends Carte {
 
     @Override
     public void effetDeCarte(Entite cible, Entite thisEntite) {
-        effetBlockage(cible);
+        effetBlockage(cible, new int[] { 3 });
 
     }
 

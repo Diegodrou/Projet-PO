@@ -4,7 +4,7 @@ import java.io.File;
 
 public abstract class Statut {
     protected int pointStatut;
-    public static int nbStatuts = 2;
+    public static int nbStatuts = 3;
 
     private static String pathImageVulne = "pictures" + File.separator + "statuts" + File.separator
             + "Icon_Vulnerable.png";
@@ -12,7 +12,9 @@ public abstract class Statut {
     private static String pathImageForce = "pictures" + File.separator + "statuts" + File.separator
             + "Strength.png";
 
-    public static String[] imagesStatut = new String[] { pathImageVulne, pathImageForce };
+    private static String pathImageFaible = "pictures" + File.separator + "statuts" + File.separator + "Icon_Frail.png";
+
+    public static String[] imagesStatut = new String[] { pathImageVulne, pathImageForce, pathImageFaible };
 
     public Statut(int pointStatut) {
         this.pointStatut = pointStatut;

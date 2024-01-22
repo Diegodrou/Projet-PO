@@ -44,8 +44,8 @@ public abstract class ActionEntite {
         }
     }
 
-    public void effetBlockage(Entite cible) {
-        cible.setBlock(cible.getBlock() + nb_block);
+    public void effetBlockage(Entite cible, int[] ordre) {
+        cible.setBlock(cible.getBlock() + applicationEffetStatuts(nb_block, ordre, cible, cible));
     }
 
     protected String getNomAction() {
@@ -66,6 +66,7 @@ public abstract class ActionEntite {
             switch (i) {
                 case 1 -> sum = cible.vulnerabilite.effetDeStatut(sum);
                 case 2 -> sum = thisEntite.force.effetDeStatut(sum);
+                case 3 -> sum = cible.faible.effetDeStatut(sum);
                 default -> throw new IllegalArgumentException("Aucun statut est associé a ce nombre");
             }
         }

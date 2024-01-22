@@ -20,6 +20,7 @@ import main.strctCarte.Defausse;
 import main.strctCarte.Pioche;
 import monstre.Machouilleur;
 import monstre.Monstre;
+import monstre.PetitSlimeAcide;
 import monstre.PetitSlimePiquant;
 import ressources.Affichage;
 import ressources.AssociationTouches;
@@ -121,6 +122,10 @@ public class Jeu {
 		String pathBackground = "pictures" + File.separator + "background.jpg";
 		Affichage.image(0, Config.X_MAX, 0, Config.Y_MAX, pathBackground);
 
+		// Affichage de numero de salle
+		Affichage.texteGauche((Config.X_MAX / 2) - 35, Config.Y_MAX - 40,
+				"Salle numero : " + (indexSalleCourante + 1) + "/" + salles.length);
+
 		// Affichage salle courante
 		affichageSalleCourante();
 
@@ -162,7 +167,8 @@ public class Jeu {
 
 	private void initisaliserSalle(int typeSalle) {
 		if (typeSalle == 1) {
-			salleC = new SalleDeCombat(new Monstre[] { new PetitSlimePiquant(), new Machouilleur() });
+			salleC = new SalleDeCombat(
+					new Monstre[] { new PetitSlimePiquant(), new Machouilleur(), new PetitSlimeAcide() });
 			salleC.initialiserPioches(deck, pioche);
 			salleCourante = salleC;
 		} else if (typeSalle == 2) {
@@ -291,6 +297,8 @@ public class Jeu {
 				effectueActionSurCible(0);
 			} else if (toucheSuivante.equals("2")) {
 				effectueActionSurCible(1);
+			} else if (toucheSuivante.equals("3")) {
+				effectueActionSurCible(2);
 			} else {
 				System.out.println("Autre touche");
 			}
@@ -539,6 +547,7 @@ public class Jeu {
 		return switch (numStatut) {
 			case 0 -> "" + e.vulnerabilite.getPointStatut();
 			case 1 -> "" + e.force.getPointStatut();
+			case 2 -> "" + e.faible.getPointStatut();
 			default -> throw new IllegalArgumentException();
 		};
 	}
