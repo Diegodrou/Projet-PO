@@ -771,6 +771,13 @@ public class Jeu {
 		Affichage.texteGauche(x + 10, y - 200, "Appuie Y pour refaire une partie et N pour sortir du jeu");
 	}
 
+	/**
+	 * Determine aleatoirement une equipe de monstre pour une salle de combat
+	 * La fonctions s'assure que on il n'y a pas plus de 2 Machouilleur dans une
+	 * equipe
+	 * 
+	 * @return Une equipe de monstre(tableau de monstre (taille 3))
+	 */
 	private Monstre[] determinerMonstres() {
 		boolean run = true;
 		Monstre[] ms = new Monstre[3];
@@ -783,6 +790,12 @@ public class Jeu {
 		return ms;
 	}
 
+	/**
+	 * Renvoie un une equipe de monstre(tableau avec 3 monstre choisit
+	 * aleatoirement)
+	 * 
+	 * @return un tableau avec tois monstre qui represente une equipe de monstre
+	 */
 	private Monstre[] getEquipeMonstre() {
 		Random r = new Random();
 		Monstre[] fin = new Monstre[3];
@@ -794,6 +807,14 @@ public class Jeu {
 		return fin;
 	}
 
+	/**
+	 * Regarde si un tableau de monstre contient 3+ Machouilleur renvoie vrais si
+	 * c'est le cas faux sinon
+	 * 
+	 * @param ms un tableau de monstre
+	 * @return un boolean qui est vrai si le tableau contient 3+ Machouilleur, faux
+	 *         sinon
+	 */
 	private boolean regarderNbMachouilleur(Monstre[] ms) {
 		int nb = 0;
 		for (Monstre monstre : ms) {
