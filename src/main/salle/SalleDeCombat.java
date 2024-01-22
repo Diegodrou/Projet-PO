@@ -166,11 +166,13 @@ public class SalleDeCombat extends Salle {
 
     private void decrementeStatutsJoueur(Heros heros) {
         heros.vulnerabilite.decrePointStatut();
+        heros.faible.decrePointStatut();
     }
 
     private void decrementeStatutsMonstres() {
         for (int i = 0; i < monstres.length; i++) {
             monstres[i].vulnerabilite.decrePointStatut();
+            monstres[i].faible.decrePointStatut();
         }
     }
 

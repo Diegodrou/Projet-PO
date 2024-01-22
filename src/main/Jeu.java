@@ -374,6 +374,7 @@ public class Jeu {
 		double largeurImage = 20;
 
 		Affichage.texteGauche(x, y, joueur.toString());
+		y -= 20;
 		// Affichage statut
 		for (int a = 0; a < Statut.nbStatuts; a++) {
 			switch (a) {
