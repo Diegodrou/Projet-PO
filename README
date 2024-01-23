@@ -1,0 +1,50 @@
+Projet de PO : DROULERS Diego et ORÉAC Ethan
+
+Attention : vous devez utiliser une version de Java qui supporte la fonctionnalité “switch”.
+(Java version “21.0.1” 2023-10-17 LTS, jdk 21)
+
+
+
+
+Description du jeu :
+
+Nous avons fait un jeu complet, dans le sens où l’on peut finir toutes les salles et quand le joueur perd, la partie s’arrête. Le joueur a la possibilité de recommencer ou non.
+Nous avons implémenté les fonctionnalitées suivantes :
+
+
+3 monstres : petit slime piquant, petit slime acide et machouilleur ;
+
+5 cartes : Frappe, Défense, Gourdin, Heurt et Saignée ;
+
+5 mouvements (attaques des monstres) : Charge, Gronder, Lêcher, Morsure et Mouvement Aléatoire ;
+
+3 types de salles : Combat, Repos et Boss
+(Retrouvez en ligne 109, dans la classe “Jeu.java”, le pattern de salle représenté par un tableau d’entier :
+1 correspond à une salle de combat,
+2 a une salle de repos,
+et 3 à la salle de Boss.
+Vous pouvez donc changer la séquence pour tester plus facilement le jeux);
+
+3 types de statut : Faible, Force et Vulnérabilité ;
+
+Système de gestion des cartes : Deck, Pioche et Défausse ;
+
+Système de récompense (à chaque fin de combat gagné, le joueur choisit une carte parmis 3) ;
+
+Le jeu est visible grâce à l’interface graphique ;
+
+
+
+Fonctionnalitées absentes :
+
+la plupart des cartes ;
+4 monstres ;
+Le système d’exil (manque des cartes à exiler) ;
+Certains statuts ;
+
+
+
+Touche pour jouer :
+
+D’abord vous devez une carte à l’aide du pavé numérique (1,2,3,4,5), puis vous devez choisir le monstre à attaquer, toujours avec le pavé numérique (1,2,3). Pour finir le tour vous devez appuyer sur “Entrée”. Quand vous passez une salle de combat vous devez choisir entre 3 cartes (1,2,3 ou “n” pour aucune). Puis, si vous perdez ou battez le Boss, vous devez choisir entre “y” pour recommencer une partie et “n” pour arrêter.
+
