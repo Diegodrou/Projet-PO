@@ -151,6 +151,9 @@ public class Jeu {
 		display();
 	}
 
+	/**
+	 * Actualise la logique du jeux
+	 */
 	public void update() {
 		if (indexSalleAvant < indexSalleCourante) {
 			initisaliserSalle(determinerTypeSalle());
@@ -162,10 +165,18 @@ public class Jeu {
 
 	}
 
+	/**
+	 * @return Le type de salle courant
+	 */
 	private int determinerTypeSalle() {
 		return salles[indexSalleCourante];
 	}
 
+	/**
+	 * Initalise une nouvelle Salle
+	 * 
+	 * @param typeSalle un entier representant le type de la salle
+	 */
 	private void initisaliserSalle(int typeSalle) {
 		if (typeSalle == 1) {
 			salleC = new SalleDeCombat(determinerMonstres());
@@ -181,6 +192,9 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Gère la logique de toute les salles
+	 */
 	private void gererSalle() {
 		if (salleCourante.isActive()) {
 			logiqueSalles(determinerTypeSalle());
@@ -189,6 +203,11 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Execute la logique correspondante au type de la salle
+	 * 
+	 * @param typeSalle un entier representant le type de la salle
+	 */
 	private void logiqueSalles(int typeSalle) {
 		switch (typeSalle) {
 			case 1 -> logiqueSalleDeCombat();
@@ -199,6 +218,9 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Gère la logique de la salle de combat
+	 */
 	private void logiqueSalleDeCombat() {
 		tourDuJoueur();
 		salleC.performerActionSalle(joueur);
@@ -218,6 +240,9 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Gère la logique de la salle de Repos
+	 */
 	private void logiqueSalleRepos() {
 		boolean enRepos = true;
 		display();
@@ -234,6 +259,9 @@ public class Jeu {
 
 	}
 
+	/**
+	 * Gère la logique de la salle du boss
+	 */
 	private void logiqueSalleBoss() {
 		tourDuJoueur();
 		salleC.performerActionSalle(joueur);
@@ -284,6 +312,9 @@ public class Jeu {
 		salleC.actionsFinTourJoueur(joueur);
 	}
 
+	/**
+	 * Cette fonction permet de choisir la cible du joueur
+	 */
 	private void choisir_cible() {
 
 		if (joueur.getCarteDeLaMain(joueur.getCarteChoisie()).getTypeDentiteApplicable() == "Heros") {
@@ -306,6 +337,11 @@ public class Jeu {
 
 	}
 
+	/**
+	 * Performe l'action de la carte choisit par le joueur
+	 * 
+	 * @param cible une entité representant la cible du joueur
+	 */
 	private void effectueActionSurCible(int cible) {
 		affichageDegatBool = true;
 		nb_cible = cible;
@@ -597,6 +633,11 @@ public class Jeu {
 		Affichage.texteGauche((Config.X_MAX / 2) - 35, Config.Y_MAX - 20, salleCourante.toString());
 	}
 
+	/**
+	 * Indique s'il y a encore des monstres vivants.
+	 * 
+	 * @return Vrai s'il y a des monstres vivantsm, faux sinon.
+	 */
 	private Boolean isMonstreVivants() {
 		int i = 0;
 		for (Monstre m : salleC.getMonstres()) {
@@ -646,6 +687,11 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Fonction qui permet l'affichage graphique des différents éléments pertinent
+	 * pour le joueur(monstres, defausse,main du joueur,etc) dans une salle de
+	 * combat
+	 */
 	private void affichageSalleCombat() {
 		// Affichage defausse
 		afficheDefausseModeGraphique();
@@ -689,6 +735,9 @@ public class Jeu {
 		}
 	}
 
+	/**
+	 * Fonction qui permet le joueur de choisir une recompense
+	 */
 	private void recompenserJoueur() {
 
 		boolean decisionFaite = false;

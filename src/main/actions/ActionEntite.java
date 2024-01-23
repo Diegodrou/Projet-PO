@@ -16,9 +16,12 @@ public abstract class ActionEntite {
      *                              subir les effet de cette
      *                              action("Heros","Monstre","HerosEtMonstre")
      * @param nb_degats             un entier representant le quantité de degats
-     *                              qu'engendre l'action
+     *                              qu'engendre l'action a l'entité qui subit les
+     *                              effets de l'action
+     * 
+     * 
      * @param nb_block              un entier representant le quantité de point de
-     *                              blocage ajoute a l'entité qui subit les effets
+     *                              blocage ajouté a l'entité qui subit les effets
      *                              de l'action
      */
     public ActionEntite(String typeDentiteApplicable, int nb_degats, int nb_block) {
@@ -40,10 +43,23 @@ public abstract class ActionEntite {
     /**
      * Perfome l'effet de la carte sur la cible donnée
      * 
-     * @param cible un objet de type entite
+     * @param cible      un objet de type entité
+     * @param thisEntite un objet de type entité qu'utilise l'action ou la carte
      */
     abstract public void effetDeAction(Entite cible, Entite thisEntite);
 
+    /**
+     * Cette fonction applique des dégats a l'entité cible(prenant en compte les
+     * points des statuts)
+     * 
+     * @param cible      un objet de type entité qui va subir les degats
+     * @param thisEntite un objet de type entite qui fait l'action(dans le cas que
+     *                   une action a des effets dans la cible et l'entite qui fait
+     *                   l'action )
+     * 
+     * @param ordre      un tableau d'entier qui represente l'ordre d'application
+     *                   des effet des differents statuts
+     */
     public void effetDegats(Entite cible, Entite thisEntite, int[] ordre) {
         int blockMoinsDegats = cible.getBlock()
                 - applicationEffetStatuts(nb_degats, ordre, cible, thisEntite);
@@ -57,6 +73,17 @@ public abstract class ActionEntite {
         }
     }
 
+    /**
+     * Cette fonction applique ajoute a l'entité cible des point de blockage(prenant
+     * en compte les
+     * points des statuts)
+     * 
+     * @param cible un objet de type entité a qui on va appliquer les points de
+     *              blockage('entite qui a fait l'action)
+     * 
+     * @param ordre un tableau d'entier qui represente l'ordre d'application
+     *              des effet des differents statuts
+     */
     public void effetBlockage(Entite cible, int[] ordre) {
         cible.setBlock(cible.getBlock() + applicationEffetStatuts(nb_block, ordre, cible, cible));
     }
@@ -69,6 +96,22 @@ public abstract class ActionEntite {
         this.nomAction = nomAction;
     }
 
+    /**
+     * Renvoi le nombre de dégats après d'appliquer les effets des statuts
+     * 
+     * @param nb_degats  un entier qui represente le nombre de degats
+     * 
+     * @param ordre      un tableau d'entier qui represente l'ordre d'application
+     *                   des effet des differents statuts
+     * 
+     * @param cible      un objet de type entité qui va subir les degats
+     * 
+     * @param thisEntite un objet de type entite qui fait l'action(dans le cas que
+     *                   une action a des effets dans la cible et l'entite qui fait
+     *                   l'action )
+     * @return Le nombre de degats apres avoir appliquer(ou pas) les effets des
+     *         statut
+     */
     private int applicationEffetStatuts(int nb_degats, int[] ordre, Entite cible, Entite thisEntite) {
         if (ordre.length == 0) {
             return nb_degats;

@@ -12,6 +12,11 @@ public abstract class Entite {
     public Force force;
     public Faible faible;
 
+    /**
+     * Type de base pour les types Heros et Monstre
+     * 
+     * @param pvMax un entier représentant les point de vie maximum de l'entité
+     */
     public Entite(int pvMax) {
         this.pvMax = pvMax;
         this.pv = pvMax;

@@ -23,11 +23,6 @@ public class Heros extends Entite {
         nb_carte_main = 0;
     }
 
-    // public void utiliserCarte(Monstre cible, Defausse defausse) {
-    // main[carteChoisie].effetDeCarte(cible);
-    // supprimeCarteMain(defausse);
-    // }
-
     public int getEnergie() {
         return energie;
     }

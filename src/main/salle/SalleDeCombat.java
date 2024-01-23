@@ -14,7 +14,7 @@ public class SalleDeCombat extends Salle {
     private boolean monstersAlive;
 
     /**
-     * Constructeur de la salle de combat(EdB)
+     * Constructeur de la salle de combat.
      * 
      * @param nb_monstre un entier qui indique le nombre de monstres de la salle
      */
@@ -25,7 +25,7 @@ public class SalleDeCombat extends Salle {
     }
 
     /**
-     * Change la cible du joueur(EdB)
+     * Change la cible du joueur.
      * 
      * @param cibleDuJoueur un entier qui est un index du tableau qui contient les
      *                      monstres
@@ -65,7 +65,7 @@ public class SalleDeCombat extends Salle {
 
     @Override
     /**
-     * Cette fonctions(EdB) :
+     * Cette fonctions :
      * 1-Regarde et actualise l'etat des monstres
      * 2-Si il y a des montres vivants ils attaquent le joueur
      * 3-si le joueur est mort aprés de l'attaque, elle s'assure de que les points
@@ -88,7 +88,7 @@ public class SalleDeCombat extends Salle {
     }
 
     /**
-     * Performe l'attaque de chaque monstre de la salle(EdB)
+     * Performe l'attaque de chaque monstre de la salle.
      * 
      * @param heros un objet de type Heros(le joueur)
      */
@@ -111,7 +111,7 @@ public class SalleDeCombat extends Salle {
 
     /**
      * Actualise la variable qui indique si il y a encore des monstres vivant de la
-     * salle sont vivant(EdB)
+     * salle sont vivant.
      * 
      */
     private void checkEtatMonstres() {
@@ -160,6 +160,11 @@ public class SalleDeCombat extends Salle {
         heros.setBlock(0);
     }
 
+    /**
+     * Remet l'energie du joueur à son maximum
+     * 
+     * @param heros un objet de type Heros qui represente le joueur
+     */
     private void resetEnergieHeros(Heros heros) {
         heros.setEnergie(heros.getEnergieMax());
     }
@@ -176,10 +181,17 @@ public class SalleDeCombat extends Salle {
         }
     }
 
+    /**
+     * Cette fonction prépare remets les point de blockage des
+     * monstres a 0 pour qu'ils soient près pour leurs tour.
+     */
     public void prepTourDesMonstres() {
         resetBlockMonstres();
     }
 
+    /**
+     * Remets à 0 tout les monstres de la Salle
+     */
     private void resetBlockMonstres() {
         for (int i = 0; i < monstres.length; i++) {
             monstres[i].setBlock(0);
@@ -198,6 +210,13 @@ public class SalleDeCombat extends Salle {
         return monstres;
     }
 
+    /**
+     * Cette fonction permet au joueur de piocher des cartes a la fin du tour
+     * 
+     * @param pioche   un objet de type pioche
+     * @param joueur   un objet de type Heros
+     * @param defausse un objet de type defausse
+     */
     private void piocheCartes(Pioche pioche, Heros joueur, Defausse defausse) {
         int nbCarteMain = joueur.getNb_carte_main();
         for (int i = 0; i < (Heros.MAX_NB_CARTES_MAIN - nbCarteMain); i++) {
@@ -212,17 +231,37 @@ public class SalleDeCombat extends Salle {
 
     }
 
+    /**
+     * Initialise au debut du combat la pioche grace aux carte qui se trouve dans le
+     * deck
+     * 
+     * @param deck   un objet de type Deck
+     * @param pioche un objet de type Pioche
+     */
     public void initialiserPioches(Deck deck, Pioche pioche) {
         for (int i = 0; i < deck.nb_carte(); i++) {
             pioche.ajouteCarte(deck.getCarteAleatoire());
         }
     }
 
+    /**
+     * Envoie les cartes du joueur a la defausse
+     * 
+     * @param heros    un objet de type heros qui represente le joueur
+     * @param defausse un objet de type defausse
+     */
     public void carteToDefausse(Heros heros, Defausse defausse) {
         defausse.ajouteCarte(heros.getMain()[heros.getCarteChoisie()]);
         heros.supprimeCarteMain();
     }
 
+    /**
+     * Indique si un monstre particulier de la salle est vivant.
+     * 
+     * @param cible un entier qui represente l'indice du monstre qu'on veut
+     *              regarder si il est vivants.
+     * @return un boolean qui est vrai si le monstre est vivant faux sinon
+     */
     public boolean regarderSiMonstreVivant(int cible) {
         return monstres[cible].alive();
     }

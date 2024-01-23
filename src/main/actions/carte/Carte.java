@@ -6,6 +6,21 @@ import main.actions.ActionEntite;
 public abstract class Carte extends ActionEntite {
     private int cout;
 
+    /**
+     * @param typeDentiteApplicable une chaine de charactere qui indique qui peut
+     *                              subir les effet de cette
+     *                              action("Heros","Monstre","HerosEtMonstre").
+     * 
+     * @param cout                  un entier representant le cout de la carte.
+     * 
+     * @param nb_degats             un entier representant le quantité de degats
+     *                              qu'engendre l'action a l'entité qui subit les
+     *                              effets de l'action.
+     * 
+     * @param nb_block              un entier representant le quantité de point
+     *                              de blocage ajouté a l'entité qui subit les
+     *                              effets de l'action.
+     */
     public Carte(String typeDentiteApplicable, int cout, int nb_degats, int nb_block) {
         super(typeDentiteApplicable, nb_degats, nb_block);
         this.cout = cout;

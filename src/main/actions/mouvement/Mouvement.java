@@ -7,6 +7,25 @@ public abstract class Mouvement extends ActionEntite {
 
     protected String imagePath;
 
+    /**
+     * Actions des monstres
+     * 
+     * @param typeDentiteApplicableune une chaine de charactere qui indique qui peut
+     *                                 subir les effet de cette
+     *                                 action("Heros","Monstre","HerosEtMonstre").
+     * 
+     * @param nb_degats                un entier representant le quantité de degats
+     *                                 qu'engendre l'action a l'entité qui subit les
+     *                                 effets de l'action.
+     * 
+     * @param nb_block                 un entier representant le quantité de point
+     *                                 de blocage ajouté a l'entité qui subit les
+     *                                 effets de l'action.
+     * 
+     * @param imagePath                une chaine de charactere qui indique où se
+     *                                 trouve l'image de l'intention correspondante
+     *                                 au mouvement
+     */
     public Mouvement(String typeDentiteApplicable, int nb_degats, int nb_block, String imagePath) {
         super(typeDentiteApplicable, nb_degats, nb_block);
         this.imagePath = imagePath;

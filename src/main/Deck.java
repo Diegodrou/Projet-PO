@@ -10,11 +10,32 @@ import main.actions.carte.Frappe;
 import main.actions.carte.Heurt;
 
 public class Deck {
+
+    /**
+     * Liste de carte qui contient toutes les cartes du deck du joueur.
+     */
     private List<Carte> cartes;
+
+    /**
+     * Copie de la liste qui contient les cartes du deck que on manipule pour
+     * remplir la pioche
+     */
     private List<Carte> copieCartes;
+
+    /**
+     * Nombre de carte qui on été enleve de copieCartes
+     */
     private int nb_util = 0;
+
+    /**
+     * Nombres de cartes maximal qui peuve etre enlevé de copieCartes
+     */
     private int nb_util_max;
 
+    /**
+     * Deck du joueur initallement contient 5 carte Frappe, 4 carte Defense et 1
+     * carte Heurt
+     */
     public Deck() {
         cartes = new ArrayList<>();
         nb_util = 0;
@@ -34,6 +55,11 @@ public class Deck {
 
     }
 
+    /**
+     * Fonction qui ser a ajouter un carte au deck du joueur
+     * 
+     * @param carte un objet de type Carte
+     */
     public void ajouteCarte(Carte carte) {
         cartes.add(carte);
         copieCartes = new ArrayList<>();
@@ -41,6 +67,10 @@ public class Deck {
         nb_util_max++;
     }
 
+    /**
+     * @return Renvoie une carte aleatoirement du Deck(utilisant la liste
+     *         copieCartes)
+     */
     public Carte getCarteAleatoire() {
         Random r = new Random();
         int nbrandom = r.nextInt(copieCartes.size());
