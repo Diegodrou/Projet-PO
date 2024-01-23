@@ -8,6 +8,19 @@ public abstract class ActionEntite {
     protected int nb_block;
     protected int nb_degats;
 
+    /**
+     * Cette class porte la fonctionalité de base d'une action qui peut etre mené
+     * par une entité(Le heros utilise des cartes, les monstre font des mouvments)
+     * 
+     * @param typeDentiteApplicable une chaine de charactere qui indique qui peut
+     *                              subir les effet de cette
+     *                              action("Heros","Monstre","HerosEtMonstre")
+     * @param nb_degats             un entier representant le quantité de degats
+     *                              qu'engendre l'action
+     * @param nb_block              un entier representant le quantité de point de
+     *                              blocage ajoute a l'entité qui subit les effets
+     *                              de l'action
+     */
     public ActionEntite(String typeDentiteApplicable, int nb_degats, int nb_block) {
         this.typeDentiteApplicable = typeDentiteApplicable;
         this.nb_block = nb_block;

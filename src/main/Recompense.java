@@ -9,7 +9,7 @@ public class Recompense {
 
     private List<List<Carte>> cartes;
     // probs[0]:communes; probs[1] = non-communes; probs[2] = rare;
-    private double[] probs = { 0.60, 0.30, 0.03 };
+    private double[] probs = { 0.60, 0.37, 0.03 };
 
     public Recompense(List<List<Carte>> cartes) {
         this.cartes = cartes;
@@ -18,9 +18,6 @@ public class Recompense {
     public Carte getCarte() {
 
         double p = Math.random();
-        while (!(p <= 0.93)) {
-            p = Math.random();
-        }
         double probaCumaltive = 0.0;
         for (int i = 0; i < cartes.size(); i++) {
             probaCumaltive += probs[i];
